@@ -2,11 +2,14 @@ module models.employee;
 
 import std.datetime;
 
+import vibe.db.mongo.mongo;
+
 import models.shop:Shop;
 
 import enums.gender;
 
 struct Employee {
+    BsonObjectID _id;
     Shop shop;
     string name;
     Gender gender;
@@ -18,6 +21,7 @@ struct Employee {
 }
 
 struct Payroll {
+    BsonObjectID _id;
     Employee employee;
     double salary;
     Date payment_date;

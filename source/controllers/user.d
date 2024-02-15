@@ -1,9 +1,6 @@
 module controllers.user;
 
 import std.stdio;
-// convertr string em System time para BsonObjectID
-import std.datetime : SysTime, Clock;
-import std.conv;
 // Vibed
 import vibe.d;
 //import vibe.http.router;
