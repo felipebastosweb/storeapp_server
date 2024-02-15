@@ -1,0 +1,15 @@
+extends layout_default
+
+block contents
+	article.container
+		header.row
+			.col-12
+				h2& Edit Brand
+		section.row
+			form(action="/brands", method="PUT")
+                .mb-3
+                    input(type="hidden", name="_id", value="#{brand._id}")
+				include brands__form
+				.mb-3
+					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
+					button.btn.btn-primary(type="submit")& Confirm
