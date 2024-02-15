@@ -60,7 +60,8 @@ class CustomerController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		render!("customers_new.dt");
+		auto customer = Customer();
+		render!("customers_new.dt", customer);
 	}
 	
     
