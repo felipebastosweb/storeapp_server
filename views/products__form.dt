@@ -1,18 +1,18 @@
 .mb-3
 	label.form-label& Name
-	input.form-control(type="text", name="name")
+	input.form-control(type="text", name="name", value="#{product.name}")
 .mb-3
 	label.form-label& Description
-	textarea.form-control(type="text", name="description")
+	textarea.form-control(type="text", name="description", value="#{product.description}")
 .mb-3
 	label.form-label& Model
-	input.form-control(type="text", name="model")
+	input.form-control(type="text", name="model", value="#{product.model}")
 .mb-3
 	label.form-label& SKU
-	input.form-control(type="text", name="sku")
+	input.form-control(type="text", name="sku", value="#{product.sku}")
 .mb-3
 	label.form-label& EAN
-	input.form-control(type="text", name="ean")
+	input.form-control(type="text", name="ean", value="#{product.ean}")
 .mb-3
 	label.form-label& Brand
 	select.form-control(name="brand")
@@ -20,13 +20,13 @@
 			option(value="#{brand.id}") #{brand.name}
 .mb-3
 	label.form-label& Length
-	input.form-control(type="number", name="ength")
+	input.form-control(type="number", name="length", value="#{product.length}")
 .mb-3
 	label.form-label& Widht
-	input.form-control(type="number", name="widht")
+	input.form-control(type="number", name="widht", value="#{product.widht}")
 .mb-3
 	label.form-label& Height
-	input.form-control(type="number", name="height")
+	input.form-control(type="number", name="height", value="#{product.height}")
 .mb-3
 	label.form-label& Weight
-	input.form-control(type="number", name="weight")
+	input.form-control(type="number", name="weight", value="#{product.weight}")
