@@ -6,6 +6,6 @@ block contents
 			.col-12
 				h2& Supplier
 		section.row
-      include supplier__supplier
+			include suppliers__supplier
 			.mb-3
 				button.btn.btn-secondary(onclick="javascript::window.close()")& Back
