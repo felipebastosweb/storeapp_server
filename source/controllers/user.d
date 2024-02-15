@@ -3,13 +3,9 @@ module controllers.user;
 import std.stdio;
 // Vibed
 import vibe.d;
-//import vibe.http.router;
-//import vibe.web.web;
 import vibe.db.mongo.mongo;
 
 import std.algorithm: map;
-import std.array: array;
-import std.json;
 
 import database;
 
