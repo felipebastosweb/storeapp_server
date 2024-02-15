@@ -2,6 +2,8 @@ module models.employee;
 
 import std.datetime;
 
+import vibe.d;
+import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
 import models.shop:Shop;
@@ -17,7 +19,7 @@ struct Employee {
     double salary;
     Date admission_date;
     Date demission_date;
-    Payroll[int]  payments; // array of payments made by the employee, indexed by payment number
+    @optional Payroll[int]  payments; // array of payments made by the employee, indexed by payment number
 }
 
 struct Payroll {
