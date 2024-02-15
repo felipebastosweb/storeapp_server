@@ -64,7 +64,8 @@ class UserController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		render!("users_new.dt");
+		auto user = User();
+		render!("users_new.dt", user);
 	}
 	
 	/*
