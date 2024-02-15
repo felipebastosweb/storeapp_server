@@ -6,7 +6,9 @@ block contents
 			.col-12
 				h2& Edit Shop
 		section.row
-			form(action="shops/#{shop.slug}/update", method="PUT")
+			form(action="/shops", method="PUT")
+                .mb-3
+                    input(type="hidden", name="_id", value="#{shop._id}")
                 include shops__form
                 .mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
