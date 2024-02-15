@@ -1,0 +1,26 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Suppliers
+        section.row
+            - foreach(supplier; suppliers)
+                article#user.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h3.card-title #{supplier.name}
+                            p.card-text
+                                | Address: #{supplier.address}
+                                | Site: #{supplier.site}
+                                | Email: #{supplier.email}
+                                | Phone 1: #{supplier.phone1}
+                                | Phone 2: #{supplier.phone2}
+                                a(href="/suppliers/#{supplier.slug}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/suppliers/#{supplier.slug}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/suppliers/#{supplier.slug}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
+                                    
