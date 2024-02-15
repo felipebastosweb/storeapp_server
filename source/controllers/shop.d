@@ -34,11 +34,27 @@ class ShopController {
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
+		render!("shops_index.dt", authenticated);
 		*/
 		auto shops = coll.find().map!(bson => deserializeBson!Shop(bson));
 		render!("shops_index.dt", shops);
 	}
+
+    // GET /users/:usernameeeeeeeee
+    @method(HTTPMethod.GET)
+	@path("/shops/:slug")
+    void show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+		struct Q { string slug; }
+        auto productNullable = coll.findOne!Customer(Q(req.params["slug"]));
+		if (! productNullable.isNull) {
+			// Acessar os campos da estrutura Customer
+			auto product = productNullable.get;
+			render!("products_show.dt", product);
+		} else {
+
+		}
+    }
 	
 	// GET /
 	@method(HTTPMethod.GET)
@@ -49,7 +65,8 @@ class ShopController {
 		bool authenticated = ms_authenticated;
 		render!("shops/index.dt", authenticated);
 		*/
-		render!("shops_new.dt");
+        auto shop = Shop();
+		render!("shops_new.dt", shop);
 	}
     
 }
