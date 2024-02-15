@@ -23,29 +23,29 @@ class OrderController {
     
 	// GET /
 	@method(HTTPMethod.GET)
-	@path("/customers")
+	@path("/orders")
 	void index()
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("customers_index.dt", authenticated);
+		render!("orders_index.dt", authenticated);
 		*/
-		auto customers = coll.find().map!(bson => deserializeBson!Customer(bson));
-		render!("customers_index.dt", customers);
+		auto orders = coll.find().map!(bson => deserializeBson!Order(bson));
+		render!("orders_index.dt", orders);
 	}
 	
 
 	// GET /users/:usernameeeeeeeee
     @method(HTTPMethod.GET)
-	@path("/customers/:slug")
+	@path("/orders/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string name; }
-        auto customerNullable = coll.findOne!Customer(Q(req.params["slug"]));
-		if (! customerNullable.isNull) {
-			// Acessar os campos da estrutura Customer
-			auto customer = customerNullable.get;
-			render!("customers_show.dt", customer);
+		struct Q { string slug; }
+        auto orderNullable = coll.findOne!Order(Q(req.params["slug"]));
+		if (! orderNullable.isNull) {
+			// Acessar os campos da estrutura Order
+			auto order = orderNullable.get;
+			render!("orders_show.dt", order);
 		} else {
 
 		}
@@ -53,14 +53,14 @@ class OrderController {
 	
 	// GET /
 	@method(HTTPMethod.GET)
-	@path("/customers/new")
+	@path("/orders/new")
 	void new_form()
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("customer_index.dt", authenticated);
+		render!("order_index.dt", authenticated);
 		*/
-		auto customer = Customer();
-		render!("customers_new.dt", customer);
+		auto order = Order();
+		render!("orders_new.dt", order);
 	}
 }
