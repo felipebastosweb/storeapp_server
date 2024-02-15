@@ -28,23 +28,23 @@ class CustomerController {
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
+		render!("customer_index.dt", authenticated);
 		*/
 		auto customers = coll.find().map!(bson => deserializeBson!Customer(bson));
-		render!("users_index.dt", customers);
+		render!("customers_index.dt", customers);
 	}
 	
 
 	// GET /users/:usernameeeeeeeee
     @method(HTTPMethod.GET)
-	@path("/customers/:username")
+	@path("/customers/:slug")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string name; }
-        auto userNullable = coll.findOne!Customer(Q(req.params["name"]));
+        auto userNullable = coll.findOne!Customer(Q(req.params["slug"]));
 		if (! userNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto user = userNullable.get;
+			auto customer = userNullable.get;
 			render!("customers_show.dt", customer);
 		} else {
 
@@ -58,7 +58,7 @@ class CustomerController {
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
+		render!("customer_index.dt", authenticated);
 		*/
 		auto customer = Customer();
 		render!("customers_new.dt", customer);
