@@ -1,0 +1,25 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Customers
+        section.row
+            - foreach(customer; customers)
+                article#customer.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h3.card-title #{customer.name}
+                            p.card-text
+                                | Name: #{customer.name}
+                                | Address: #{customer.address}
+                                | Phone 1: #{customer.phone1}
+                                | Phone 2: #{customer.phone2}
+                                a(href="/customers/#{customer.slug}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/customers/#{customer.slug}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/customers/#{customer.slug}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
+                                    
