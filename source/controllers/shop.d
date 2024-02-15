@@ -46,11 +46,11 @@ class ShopController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string slug; }
-        auto productNullable = coll.findOne!Customer(Q(req.params["slug"]));
-		if (! productNullable.isNull) {
+        auto shopNullable = coll.findOne!Shop(Q(req.params["slug"]));
+		if (! shopNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto product = productNullable.get;
-			render!("products_show.dt", product);
+			auto shop = shopNullable.get;
+			render!("shops_show.dt", shop);
 		} else {
 
 		}
