@@ -6,7 +6,9 @@ block contents
 			.col-12
 				h2& Edit Customer
 		section.row
-			form(action="customers/#{customer.slug}/update", method="PUT")
+			form(action="/customers", method="PUT")
+                .mb-3
+                    input(type="hidden", name="_id", value="#{customer._id}")
                 include customers__form
                 .mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
