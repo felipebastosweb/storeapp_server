@@ -1,5 +1,9 @@
 module models.product;
 
+import vibe.d;
+import vibe.data.serialization;
+import vibe.db.mongo.mongo;
+
 import models.brand:Brand;
 import models.purchase:PurchaseItem;
 
@@ -9,14 +13,17 @@ import models.purchase:PurchaseItem;
  */
 
 struct Option {
+    BsonObjectID _id;
     string name;
     string description;
-    OptionValue[int] option_values;
+    @optional OptionValue[int] option_values;
 }
 
 struct OptionValue {
+    BsonObjectID _id;
     Option option;
     string name;
+    @optional ProductWithOption[] product_with_options;
 }
 
 struct MeasureUnit {
@@ -24,15 +31,23 @@ struct MeasureUnit {
 }
 
 struct Product {
+    BsonObjectID _id;
     string name;
     string description;
     Brand brand;
-    PurchaseItem[int] purchase_items;
     ProductMeasure[int] product_measure;
+    ProductWithOption[] product_with_options;
+}
+
+struct ProductWithOption {
+    BsonObjectID _id;
+    Product product;
+    PurchaseItem[int] purchase_items;
     OptionValue[int] option_values;
 }
 
 struct ProductMeasure {
+    BsonObjectID _id;
     Product product;
     MeasureUnit measure_unit;
     double width;
