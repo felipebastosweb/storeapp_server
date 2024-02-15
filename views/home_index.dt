@@ -1,0 +1,90 @@
+extends layout_default
+
+block contents
+	article.container
+		header.row
+			.col-12
+				h2& Welcome
+		section.row
+			article#users.col-3(style="padding:5px;")
+				.card
+					.card-body	
+						h3.card-title Users
+						a(href="users/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="users/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#shops.col-3(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Shops
+						a(href="shops/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="shops/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#brands.col-3(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Brands
+						a(href="brands/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="brands/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#customers.col-3(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Customers
+						a(href="customers/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="customers/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#suppliers.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Suppliers
+						a(href="suppliers/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="suppliers/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#products.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Products
+						a(href="products/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="products/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#purchases.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Purchases
+						a(href="purchases/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="purchases/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#orders.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Orders
+						a(href="orders/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="orders/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#payments.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Payments
+						a(href="payments/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="payments/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+			article#deliveries.col-6(style="padding:5px;")
+				.card
+					.card-body
+						h3.card-title Deliveries
+						a(href="deliveries/new", class="btn btn-primary", target="_blank")
+							i.bi.bi-plus
+						a(href="deliveries/", class="btn btn-info", target="_blank")
+							i.bi.bi-list
+	:javascript
+		// jquery load data to template

@@ -1,0 +1,20 @@
+- void css(string file)
+	link(rel= 'stylesheet', type='text/css', href='public/css/#{file}.css')
+
+doctype 5
+html
+	head
+		title& Welcome
+		- css("common");
+	body
+		- if (authenticated)
+			form(action="logout", method="POST")
+				button&(type="submit") Logout
+		- else
+			h2& Login
+			form(action="login", method="POST")
+				p& Username:
+					input(type="text", name="username")
+				p& Password:
+					input(type="password", name="password")
+				button(type="submit")

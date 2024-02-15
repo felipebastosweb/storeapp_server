@@ -1,0 +1,18 @@
+.mb-3
+	label.form-label& Name
+	input.form-control(type="text", name="name")
+.mb-3
+	label.form-label& Description
+	textarea.form-control(type="text", name="description")
+.mb-3
+	label.form-label& Site
+	input.form-control(type="url", name="site")
+.mb-3
+	label.form-label& Email
+	input.form-control(type="email", name="email")
+.mb-3
+	label.form-label& Telephone 1
+	input.form-control(type="phone", name="telephone1")
+.mb-3
+	label.form-label& Telephone 2
+	input.form-control(type="phone", name="telephone2")

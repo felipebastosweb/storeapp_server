@@ -1,0 +1,15 @@
+.mb-3
+	label.form-label& Username
+	input.form-control(type="text", name="username")
+.mb-3
+	label.form-label& Password
+	input.form-control(type="password", name="password")
+.mb-3
+	label.form-label& Repeat the Password
+	input.form-control(type="password", name="password_repeated")
+.mb-3
+	label.form-label& E-mail
+	input.form-control(type="email", name="email")
+.mb-3
+	label.form-label& Phone Number
+	input.form-control(type="phone", name="telephone")

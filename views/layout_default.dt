@@ -1,0 +1,16 @@
+- void css(string file)
+	link(rel= 'stylesheet', type='text/css', href='/public/css/#{file}.min.css')
+- void js(string file)
+	script(type='application/javascript', src='/public/js/#{file}.min.js')
+
+doctype 5
+html
+	head
+		title StoreApp
+		- css("bootstrap");
+		- css("bootstrap-icons");
+		//- css("common");
+		- js("jquery");
+		- js("bootstrap");
+	body
+		block contents

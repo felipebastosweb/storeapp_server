@@ -1,0 +1,30 @@
+.mb-3
+	label.form-label& Name
+	input.form-control(type="text", name="name")
+.mb-3
+	label.form-label& Fantasy Name
+	input.form-control(type="text", name="fantasy_name")
+.mb-3
+	label.form-label& Federal Inscription Number
+	input.form-control(type="text", name="federal_registration_number")
+.mb-3
+	label.form-label& Zone Registration Number
+	input.form-control(type="text", name="zone_registration_number")
+.mb-3
+	label.form-label& Municipal Registration Number
+	input.form-control(type="text", name="municipal_registration_number")
+.mb-3
+	label.form-label& Date Registration Status
+	input.form-control(type="date", name="date_registration_status")
+.mb-3
+	label.form-label& Email
+	input.form-control(type="email", name="email")
+.mb-3
+	label.form-label& Site
+	input.form-control(type="url", name="site")
+.mb-3
+	label.form-label& Telephone 1
+	input.form-control(type="phone", name="telephone1")
+.mb-3
+	label.form-label& Telephone 2
+	input.form-control(type="phone", name="telephone2")

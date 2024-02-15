@@ -1,0 +1,32 @@
+.mb-3
+	label.form-label& Name
+	input.form-control(type="text", name="name")
+.mb-3
+	label.form-label& Description
+	textarea.form-control(type="text", name="description")
+.mb-3
+	label.form-label& Model
+	input.form-control(type="text", name="model")
+.mb-3
+	label.form-label& SKU
+	input.form-control(type="text", name="sku")
+.mb-3
+	label.form-label& EAN
+	input.form-control(type="text", name="ean")
+.mb-3
+	label.form-label& Brand
+	select.form-control(name="brand")
+		- foreach(brand; brands)
+			option(value="#{brand.id}") #{brand.name}
+.mb-3
+	label.form-label& Length
+	input.form-control(type="number", name="ength")
+.mb-3
+	label.form-label& Widht
+	input.form-control(type="number", name="widht")
+.mb-3
+	label.form-label& Height
+	input.form-control(type="number", name="height")
+.mb-3
+	label.form-label& Weight
+	input.form-control(type="number", name="weight")

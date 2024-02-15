@@ -1,0 +1,21 @@
+.mb-3
+	label.form-label& Name
+	input.form-control(type="text", name="name")
+.mb-3
+	label.form-label& Social Name
+	input.form-control(type="text", name="social_name")
+.mb-3
+	label.form-label& Gender
+	select.form-control(name="gender")
+		option(value="Unknow")& Unknow
+		option(value="Female")& Female
+		option(value="Male")& Male
+.mb-3
+	label.form-label& Email
+	input.form-control(type="email", name="email")
+.mb-3
+	label.form-label& Telephone 1
+	input.form-control(type="phone", name="telephone1")
+.mb-3
+	label.form-label& Telephone 2
+	input.form-control(type="phone", name="telephone2")
