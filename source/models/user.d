@@ -1,5 +1,6 @@
 module models.user;
 
+import vibe.d;
 import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
@@ -15,6 +16,7 @@ struct User {
 }
 
 struct Role {
+    BsonObjectID _id;
     string name;
     string description;
     @optional User[int] users;
@@ -22,6 +24,7 @@ struct Role {
 }
 
 struct Permission {
+    BsonObjectID _id;
     string name;
     string description;
 }
