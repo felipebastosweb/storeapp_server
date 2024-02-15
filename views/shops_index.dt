@@ -1,0 +1,27 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Shops
+        section.row
+            - foreach(shop; shops)
+                article#user.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h5.card-title #{shop.name}
+                            h6.card-subtitle #{shop.fantasy_name}
+                            p.card-text
+                                | Address: #{shop.address}
+                                | Site: #{shop.site}
+                                | Email: #{shop.email}
+                                | Phone 1: #{shop.phone1}
+                                | Phone 1: #{shop.phone2}
+                                a(href="/users/#{shop.slug}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/users/#{shop.slug}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/users/#{shop.slug}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
+                                    
