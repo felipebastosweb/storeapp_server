@@ -1,18 +1,18 @@
 .mb-3
 	label.form-label& Name
-	input.form-control(type="text", name="name")
+	input.form-control(type="text", name="name", value="#{brand.name}")
 .mb-3
 	label.form-label& Description
-	textarea.form-control(type="text", name="description")
+	textarea.form-control(type="text", name="description", value="#{brand.description}", row="3")
 .mb-3
 	label.form-label& Site
-	input.form-control(type="url", name="site")
+	input.form-control(type="url", name="site", value="#{brand.site}")
 .mb-3
 	label.form-label& Email
-	input.form-control(type="email", name="email")
+	input.form-control(type="email", name="email", value="#{brand.email}")
 .mb-3
 	label.form-label& Telephone 1
-	input.form-control(type="phone", name="telephone1")
+	input.form-control(type="phone", name="phone1", value="#{brand.phone1}")
 .mb-3
 	label.form-label& Telephone 2
-	input.form-control(type="phone", name="telephone2")
+	input.form-control(type="phone", name="phone2", value="#{brand.phone2}")
