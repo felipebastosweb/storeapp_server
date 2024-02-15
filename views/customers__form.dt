@@ -1,9 +1,9 @@
 .mb-3
 	label.form-label& Name
-	input.form-control(type="text", name="name")
+	input.form-control(type="text", name="name", value="#{customer.name}")
 .mb-3
 	label.form-label& Social Name
-	input.form-control(type="text", name="social_name")
+	input.form-control(type="text", name="social_name", value="#{customer.social_name}")
 .mb-3
 	label.form-label& Gender
 	select.form-control(name="gender")
@@ -12,10 +12,10 @@
 		option(value="Male")& Male
 .mb-3
 	label.form-label& Email
-	input.form-control(type="email", name="email")
+	input.form-control(type="email", name="email", value="#{customer.email}")
 .mb-3
 	label.form-label& Telephone 1
-	input.form-control(type="phone", name="telephone1")
+	input.form-control(type="phone", name="phone1", value="#{customer.phone1}")
 .mb-3
 	label.form-label& Telephone 2
-	input.form-control(type="phone", name="telephone2")
+	input.form-control(type="phone", name="phone2", value="#{customer.phone2}")
