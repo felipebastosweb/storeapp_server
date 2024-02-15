@@ -1,0 +1,6 @@
+p #{shop.name}
+p #{shop.fantasy_name}
+p #{shop.address}
+p #{shop.email}
+p #{shop.phone1}
+p #{shop.phone2}
