@@ -4,9 +4,9 @@ block contents
 	article.container
 		header.row
 			.col-12
-				h2& New Shop
+				h2& Edit Shop
 		section.row
-			form(method="PUT")
+			form(action="shops/#{shop.slug}/update", method="PUT")
                 include shops__form
                 .mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
