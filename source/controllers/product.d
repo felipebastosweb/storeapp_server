@@ -28,7 +28,7 @@ class ProductController {
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
+		render!("product/index.dt", authenticated);
 		*/
 		auto products = coll.find().map!(bson => deserializeBson!Product(bson));
 		render!("products_index.dt", products);
@@ -41,9 +41,9 @@ class ProductController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string slug; }
-        auto productNullable = coll.findOne!Customer(Q(req.params["slug"]));
+        auto productNullable = coll.findOne!Product(Q(req.params["slug"]));
 		if (! productNullable.isNull) {
-			// Acessar os campos da estrutura Customer
+			// Acessar os campos da estrutura Product
 			auto product = productNullable.get;
 			render!("products_show.dt", product);
 		} else {
@@ -58,7 +58,7 @@ class ProductController {
 	{
 		/*
 		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
+		render!("product_index.dt", authenticated);
 		*/
         auto product = Product();
 		render!("products_new.dt", product);
