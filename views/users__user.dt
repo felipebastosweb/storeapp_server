@@ -1,0 +1,4 @@
+p #{user.username}
+p #{user.password}
+p #{user.email}
+p #{user.phone}
