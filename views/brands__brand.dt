@@ -1,0 +1,6 @@
+p #{brand.name}
+p #{brand.address}
+p #{brand.site}
+p #{brand.email}
+p #{brand.phone1}
+p #{brand.phone2}
