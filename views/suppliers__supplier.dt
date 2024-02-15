@@ -1,0 +1,6 @@
+p #{supplier.name}
+p #{supplier.address}
+p #{supplier.site}
+p #{supplier.email}
+p #{supplier.phone1}
+p #{supplier.phone2}
