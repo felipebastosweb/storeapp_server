@@ -31,7 +31,7 @@ class BrandController {
 		render!("user/index.dt", authenticated);
 		*/
 		auto brands = coll.find().map!(bson => deserializeBson!Brand(bson));
-		render!("brands_index.dt", customers);
+		render!("brands_index.dt", brands);
 	}
 	
 
@@ -41,10 +41,10 @@ class BrandController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string slug; }
-        auto userNullable = coll.findOne!Brand(Q(req.params["slug"]));
-		if (! userNullable.isNull) {
+        auto brandNullable = coll.findOne!Brand(Q(req.params["slug"]));
+		if (! brandNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto brand = userNullable.get;
+			auto brand = brandNullable.get;
 			render!("brands_show.dt", brand);
 		} else {
 
