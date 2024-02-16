@@ -10,7 +10,8 @@ struct Brand {
     BsonObjectID _id;
     string name;
     string address;
-    string phone;
+    string phone1;
+    string phone2;
     string site;
     string email;
     @optional Product[int] products;
