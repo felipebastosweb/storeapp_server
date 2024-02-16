@@ -4,6 +4,7 @@ import vibe.d;
 import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
+import models.product:Product;
 
 struct Brand {
     BsonObjectID _id;
