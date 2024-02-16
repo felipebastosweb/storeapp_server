@@ -4,8 +4,8 @@ block contents
 	article.container
 		header.row
 			.col-12
-				h2& Customer
+				h2& Product
 		section.row
-			include customers__customer, customer
+			include products__product, product
 			.mb-3
 				button.btn.btn-secondary(onclick="javascript::window.close()")& Back

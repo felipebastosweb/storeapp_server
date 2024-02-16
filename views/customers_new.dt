@@ -7,7 +7,7 @@ block contents
 				h2& New Customer
 		section.row
 			form(method="POST")
-				include customers__form
+				include customers__form, customer
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm
