@@ -9,16 +9,22 @@ import std.algorithm: map;
 
 import database;
 import models.order;
+import models.shop;
+import models.customer;
 
 import translation;
 
 class OrderController {
     private MongoClient client;
 	MongoCollection coll;
+	MongoCollection coll_shop;
+	MongoCollection coll_customer;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
-		coll = client.getCollection("storeapp.customers");
+		coll = client.getCollection("storeapp.orders");
+		coll_shop = client.getCollection("storeapp.shops");
+		coll_customer = client.getCollection("storeapp.customers");
 	}
     
 	// GET /
@@ -34,8 +40,8 @@ class OrderController {
 		render!("orders_index.dt", orders);
 	}
 	
-
-	// GET /users/:usernameeeeeeeee
+	/*
+	// GET /orders/:_id
     @method(HTTPMethod.GET)
 	@path("/orders/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
@@ -50,8 +56,9 @@ class OrderController {
 
 		}
     }
-	
-	// GET /
+	*/
+
+	// GET /orders/new
 	@method(HTTPMethod.GET)
 	@path("/orders/new")
 	void new_form()
@@ -61,6 +68,8 @@ class OrderController {
 		render!("order_index.dt", authenticated);
 		*/
 		auto order = Order();
-		render!("orders_new.dt", order);
+		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+		auto customers = coll_customer.find().map!(bson => deserializeBson!Customer(bson));
+		render!("orders_new.dt", order, shops, customers);
 	}
 }

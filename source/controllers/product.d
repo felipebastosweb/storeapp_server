@@ -8,18 +8,21 @@ import vibe.db.mongo.mongo;
 import std.algorithm: map;
 
 import database;
-import models.customer;
+import models.product;
+import models.brand;
 
 import translation;
 
 class ProductController {
     private MongoClient client;
 	MongoCollection coll;
+	MongoCollection coll_brand;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
 		coll = client.getCollection("storeapp.products");
-	}
+		coll_brand = client.getCollection("storeapp.brands");
+    }
     
 	// GET /
 	@method(HTTPMethod.GET)
@@ -37,11 +40,11 @@ class ProductController {
 
 	// GET /users/:usernameeeeeeeee
     @method(HTTPMethod.GET)
-	@path("/products/:slug")
+	@path("/products/:sku")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string slug; }
-        auto productNullable = coll.findOne!Product(Q(req.params["slug"]));
+		struct Q { string sku; }
+        auto productNullable = coll.findOne!Product(Q(req.params["sku"]));
 		if (! productNullable.isNull) {
 			// Acessar os campos da estrutura Product
 			auto product = productNullable.get;
@@ -61,6 +64,7 @@ class ProductController {
 		render!("product_index.dt", authenticated);
 		*/
         auto product = Product();
-		render!("products_new.dt", product);
+		auto brands = coll_brand.find().map!(bson => deserializeBson!Brand(bson));
+		render!("products_new.dt", product, brands);
 	}
 }

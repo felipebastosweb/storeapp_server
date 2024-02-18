@@ -8,11 +8,13 @@ import models.product:Product;
 
 struct Brand {
     BsonObjectID _id;
-    string name;
-    string address;
-    string phone1;
-    string phone2;
-    string site;
-    string email;
-    @optional Product[int] products;
+    string name = "";
+    string description = "";
+    string slug = "";
+    string address = "";
+    string phone1 = "";
+    string phone2 = "";
+    string site = "";
+    string email = "";
+    @optional Product[] products;
 }

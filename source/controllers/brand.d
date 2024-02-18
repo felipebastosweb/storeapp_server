@@ -60,7 +60,8 @@ class BrandController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		render!("brands_new.dt");
+		auto brand = Brand();
+		render!("brands_new.dt", brand);
 	}
     
 }

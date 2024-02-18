@@ -35,16 +35,16 @@ class CustomerController {
 	}
 	
 
-	// GET /users/:usernameeeeeeeee
+	// GET /customers/:customer
     @method(HTTPMethod.GET)
-	@path("/customers/:slug")
+	@path("/customers/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string name; }
-        auto userNullable = coll.findOne!Customer(Q(req.params["slug"]));
-		if (! userNullable.isNull) {
+		struct Q { string _id; }
+        auto customerNullable = coll.findOne!Customer(Q(req.params["_id"]));
+		if (! customerNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto customer = userNullable.get;
+			auto customer = customerNullable.get;
 			render!("customers_show.dt", customer);
 		} else {
 

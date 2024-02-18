@@ -9,16 +9,22 @@ import std.algorithm: map;
 
 import database;
 import models.purchase;
+import models.shop;
+import models.supplier;
 
 import translation;
 
 class PurchaseController {
     private MongoClient client;
 	MongoCollection coll;
+	MongoCollection coll_shop;
+	MongoCollection coll_supplier;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
 		coll = client.getCollection("storeapp.purchases");
+		coll_shop = client.getCollection("storeapp.shops");
+		coll_supplier = client.getCollection("storeapp.suppliers");
 	}
     
 	// GET /
@@ -31,7 +37,7 @@ class PurchaseController {
 		render!("user/index.dt", authenticated);
 		*/
 		auto purchases = coll.find().map!(bson => deserializeBson!Purchase(bson));
-		render!("purchases_index.dt", products);
+		render!("purchases_index.dt", purchases);
 	}
 	
 
@@ -61,7 +67,9 @@ class PurchaseController {
 		render!("user/index.dt", authenticated);
 		*/
         auto purchase = Purchase();
-		render!("purchases_new.dt", purchase);
+		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+		auto suppliers = coll_supplier.find().map!(bson => deserializeBson!Supplier(bson));
+		render!("purchases_new.dt", purchase, shops, suppliers);
 	}
     
 }

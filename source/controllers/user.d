@@ -68,17 +68,62 @@ class UserController {
 		render!("users_new.dt", user);
 	}
 	
-	/*
-	// POST /login (username and password are automatically read as form fields)
-	@method(HTTPMethod.POST) @path("/login")
-	void postLogin(string username, string password)
+	// POST /users (username and password are automatically read as form fields)
+	@method(HTTPMethod.POST)
+	@path("/users")
+	void register(HTTPServerRequest req, HTTPServerResponse res)
 	{
+		/**
+		Você pode definir a codificação do formulário como enctype="multipart/form-data" se estiver
+		enviando arquivos, ou como enctype="application/x-www-form-urlencoded" para dados normais do formulário.
+		*/
+		User user;
+		user._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		user.username = req.form["username"];
+		user.password = req.form["password"];
+		user.email = req.form["email"];
+		user.phone = req.form["phone"];
+		coll.insertOne(user);
+        res.redirect("/users");
+
+		/*
+		try {
+			coll.insert(serializeBson!user);
+            res.redirect("/users");
+		} catch (MongoError e) {
+			// If there was an error, show the form again with an error message
+			res.setStatusCode(409);  // Conflict
+		}
+		*/
+
+		/*
 		enforceHTTP(username == "user" && password == "secret",
 			HTTPStatus.forbidden, "Invalid user name or password.");
 		ms_authenticated = true;
 		redirect("/");
+		*/
+
 	}
 	
+	// GET /
+	@method(HTTPMethod.GET)
+	@path("/users/:username/edit")
+	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("user/index.dt", authenticated);
+		*/
+		struct Q { string username; }
+        auto userNullable = coll.findOne!User(Q(req.params["username"]));
+		if (! userNullable.isNull) {
+			// Acessar os campos da estrutura User
+			User user = userNullable.get;
+			render!("users_edit.dt", user);
+		}
+	}
+	
+	/*
 	// POST /logout
 	@method(HTTPMethod.POST) @path("/logout")
 	void postLogout()

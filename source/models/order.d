@@ -12,10 +12,11 @@ import models.customer:Customer;
 struct Order {
     BsonObjectID _id;
     Shop shop;
-    Customer customer;
+    string customer_id;
+    @optional Customer customer;
     double total;
     DateTime request_date;
-    @optional Order[int] orders;
+    @optional OrderItem[int] order_items;
 }
 
 struct OrderItem {

@@ -11,16 +11,17 @@ struct User {
     string username;
     string password;
     string email;
-    @optional Shop[int] shops;
-    @optional Role[int] roles;
+    string phone;
+    @optional Shop[] shops;
+    @optional Role[] roles;
 }
 
 struct Role {
     BsonObjectID _id;
     string name;
     string description;
-    @optional User[int] users;
-    @optional Permission[int] permissions;
+    @optional User[] users;
+    @optional Permission[] permissions;
 }
 
 struct Permission {

@@ -9,8 +9,10 @@ import models.order:Order;
 struct Customer {
     BsonObjectID _id;
     string name;
+    string social_name;
     string address;
-    string phone;
+    string phone1;
+    string phone2;
     string email;
-    @optional Order[int] orders;
+    @optional Order[] orders;
 }

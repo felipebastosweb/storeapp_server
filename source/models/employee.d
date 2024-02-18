@@ -17,6 +17,10 @@ struct Employee {
     Gender gender;
     Date birthDate;
     double salary;
+    string address;
+    string email;
+    string phone1;
+    string phone2;
     Date admission_date;
     Date demission_date;
     @optional Payroll[int]  payments; // array of payments made by the employee, indexed by payment number

@@ -4,6 +4,8 @@ import vibe.d;
 import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
+import enums.measure;
+
 import models.brand:Brand;
 import models.purchase:PurchaseItem;
 
@@ -21,37 +23,34 @@ struct Option {
 
 struct OptionValue {
     BsonObjectID _id;
-    Option option;
+    string option_id;
+    @optional Option option;
     string name;
     @optional ProductWithOption[] product_with_options;
-}
-
-struct MeasureUnit {
-    string name;
 }
 
 struct Product {
     BsonObjectID _id;
     string name;
+    string model;
     string description;
-    Brand brand;
-    ProductMeasure[int] product_measure;
-    ProductWithOption[] product_with_options;
-}
-
-struct ProductWithOption {
-    BsonObjectID _id;
-    Product product;
-    PurchaseItem[int] purchase_items;
-    OptionValue[int] option_values;
-}
-
-struct ProductMeasure {
-    BsonObjectID _id;
-    Product product;
-    MeasureUnit measure_unit;
+    string sku;
+    string ean;
+    string brand_id; // obter id de  BsonObjectID Brand._Id
+    @optional Brand brand;
+    string measure_unit; // obter string de enum Measure
     double width;
     double height;
     double length;
     double weight;
+    @optional ProductWithOption[] product_with_options;
 }
+
+struct ProductWithOption {
+    BsonObjectID _id;
+    string product_id;
+    @optional Product product;
+    @optional PurchaseItem[] purchase_items;
+    @optional OptionValue[] option_values;
+}
+

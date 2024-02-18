@@ -40,9 +40,9 @@ class EmployeeController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string name; }
-        auto employeeNullable = coll.findOne!Customer(Q(req.params["slug"]));
+        auto employeeNullable = coll.findOne!Employee(Q(req.params["slug"]));
 		if (! employeeNullable.isNull) {
-			// Acessar os campos da estrutura Customer
+			// Acessar os campos da estrutura Employee
 			auto employee = employeeNullable.get;
 			render!("employees_show.dt", employee);
 		} else {
@@ -59,7 +59,7 @@ class EmployeeController {
 		bool authenticated = ms_authenticated;
 		render!("employees_index.dt", authenticated);
 		*/
-		auto employee = Customer();
+		auto employee = Employee();
 		render!("employees_new.dt", employee);
 	}
 }

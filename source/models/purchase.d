@@ -10,18 +10,23 @@ import models.product:OptionValue, Product;
 
 struct Purchase {
     BsonObjectID _id;
-    Shop shop;
-    Supplier supplier;
+    string shop_id;
+    string supplier_id;
+    @optional Shop shop;
+    @optional Supplier supplier;
     double value;
     double taxes;
     double total;
+    Date purchase_date;
     @optional PurchaseItem[int] purchase_items;
 }
 
 struct PurchaseItem {
     BsonObjectID _id;
-    Purchase purchase;
-    Product product;
+    string purchase_id;
+    string product_id;
+    @optional Purchase purchase;
+    @optional Product product;
     double quantity;
     double price;
     double total;
@@ -34,8 +39,8 @@ struct PurchaseItem {
  */
 struct PurchaseItemProduct {
     BsonObjectID _id;
-    string code;
-    PurchaseItem purchase_item;
+    string purchase_item_id;
+    @optional PurchaseItem purchase_item;
     double purchase_price;
     double order_price;
     @optional OptionValue[string] option_values;

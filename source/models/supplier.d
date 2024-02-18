@@ -9,8 +9,10 @@ import models.purchase:Purchase;
 struct Supplier {
     BsonObjectID _id;
     string name;
+    string description;
     string address;
-    string phone;
+    string phone1;
+    string phone2;
     string site;
     string email;
     @optional Purchase[int] purchases;
