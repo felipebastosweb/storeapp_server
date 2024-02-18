@@ -6,8 +6,8 @@ block contents
 			.col-12
 				h2& New Supplier
 		section.row
-			form(method="POST")
-				include suppliers__form, supplier
+			form(action="/suppliers", method="POST")
+				include suppliers__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm

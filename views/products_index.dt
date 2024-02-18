@@ -15,10 +15,10 @@ block contents
                                 | Description: #{product.description}
                                 | Model: #{product.model}
                                 | Ean: #{product.ean}
-                                a(href="/products/#{product.slug}", class="btn btn-info", target="_blank")
+                                a(href="/products/#{product.sku}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
-                                a(href="/products/#{product.slug}/edit", class="btn btn-warning", target="_blank")
+                                a(href="/products/#{product.sku}/edit", class="btn btn-warning", target="_blank")
                                     i.bi.bi-pencil
-                                a(href="/products/#{product.slug}/delete", class="btn btn-danger", target="_blank")
+                                a(href="/products/#{product.sku}/delete", class="btn btn-danger", target="_blank")
                                     i.bi.bi-trash
                                     

@@ -4,10 +4,12 @@ block contents
 	article.container
 		header.row
 			.col-12
-				h2& New Customer
+				h2& Edit Order
 		section.row
-			form(action="/customers", method="POST")
-				include customers__form
-				.mb-3
+			form(action="/orders", method="PUT")
+                .mb-3
+                    input(type="hidden", name="_id", value="#{order._id}")
+                include orders__form
+                .mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm

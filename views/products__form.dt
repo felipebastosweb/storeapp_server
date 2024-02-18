@@ -17,13 +17,13 @@
 	label.form-label& Brand
 	select.form-control(name="brand")
 		- foreach(brand; brands)
-			option(value="#{brand.id}") #{brand.name}
+			option(value="#{brand._id.toString()}") #{brand.name}
 .mb-3
 	label.form-label& Length
 	input.form-control(type="number", name="length", value="#{product.length}")
 .mb-3
 	label.form-label& Widht
-	input.form-control(type="number", name="widht", value="#{product.widht}")
+	input.form-control(type="number", name="widht", value="#{product.width}")
 .mb-3
 	label.form-label& Height
 	input.form-control(type="number", name="height", value="#{product.height}")

@@ -4,10 +4,10 @@ block contents
 	article.container
 		header.row
 			.col-12
-				h2& New Customer
+				h2& New Purchase
 		section.row
-			form(action="/customers", method="POST")
-				include customers__form
+			form(action="/purchases", method="POST")
+				include purchases__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm

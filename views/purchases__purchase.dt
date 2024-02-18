@@ -1,0 +1,4 @@
+p #{purchase.shop.name}
+p #{purchase.supplier.name}
+p #{purchase.total}
+p #{purchase.purchase_date}

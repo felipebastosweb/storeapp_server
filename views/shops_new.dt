@@ -6,8 +6,8 @@ block contents
 			.col-12
 				h2& New Shop
 		section.row
-			form(method="POST")
-				include shops__form, shop
+			form(action="/shops", method="POST")
+				include shops__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm

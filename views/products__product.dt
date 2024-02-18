@@ -1,0 +1,8 @@
+p #{product.name}
+p #{product.model}
+p #{product.sku}
+p #{product.ean}
+p #{product.width}
+p #{product.height}
+p #{product.length}
+p #{product.weight}

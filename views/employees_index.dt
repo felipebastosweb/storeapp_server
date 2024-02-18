@@ -1,0 +1,24 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Employees
+        section.row
+            - foreach(employee; employees)
+                article#user.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h3.card-title #{employee.name}
+                            p.card-text
+                                | Email: #{employee.email}
+                                | Phone 1: #{employee.phone1}
+                                | Phone 2: #{employee.phone2}
+                                a(href="/employees/#{employee._id}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/employees/#{employee._id}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/employees/#{employee._id}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
+                                    

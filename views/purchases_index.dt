@@ -1,0 +1,24 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Purchases
+        section.row
+            - foreach(purchase; purchases)
+                article#purchase.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h3.card-title #{purchase.supplier.name}
+                            h6.card-subtitle #{purchase.total}
+                            p.card-text
+                                | Email: #{purchase.shop.name}
+                                | Email: #{purchase.purchase_date}
+                                a(href="/purchases/#{purchase._id}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/purchases/#{purchase._id}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/purchases/#{purchase._id}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
+                                    

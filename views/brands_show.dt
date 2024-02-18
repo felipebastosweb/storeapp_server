@@ -6,6 +6,6 @@ block contents
 			.col-12
 				h2& Brand
 		section.row
-			include brands__brand, brand
+			include brands__brand
 			.mb-3
 				button.btn.btn-secondary(onclick="javascript::window.close()")& Back

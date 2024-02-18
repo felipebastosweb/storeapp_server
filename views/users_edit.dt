@@ -1,15 +1,15 @@
 extends layout_default
 
 block contents
-	article.container
-		header.row
-			.col-12
-				h2& Edit User
-		section.row
-			form(action="/users", method="PUT")
+    article.container
+        header.row
+            .col-12
+                h2& Edit User
+        section.row
+            form(action="/users", method="PUT")
                 .mb-3
-                    input(type="hidden", name="_id", value="#{user._id}")
-                include users__form, user
+                    input(type="hidden", name="_id", value="#{user._id.toString()}")
+                include users__form
                 .mb-3
-					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
-					button.btn.btn-primary(type="submit")& Confirm
+                    button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
+                    button.btn.btn-primary(type="submit")& Confirm

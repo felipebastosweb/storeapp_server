@@ -6,8 +6,8 @@ block contents
 			.col-12
 				h2& New User
 		section.row
-			form(method="POST")
-				include users__form, user
+			form(action="/users", method="POST", enctype="multipart/form-data")
+				include users__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm
