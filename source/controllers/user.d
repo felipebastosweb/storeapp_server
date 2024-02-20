@@ -122,6 +122,33 @@ class UserController {
 			render!("users_edit.dt", user);
 		}
 	}
+
+		// POST /users (username and password are automatically read as form fields)
+	@method(HTTPMethod.POST)
+	@path("/users/:_id")
+	void change(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/**
+		Você pode definir a codificação do formulário como enctype="multipart/form-data" se estiver
+		enviando arquivos, ou como enctype="application/x-www-form-urlencoded" para dados normais do formulário.
+		*/
+		auto _id = BsonObjectID.fromString(req.params["_id"]); // pega o valor do parâmetro "_id" e remove caracteres perigosos
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+
+		Bson[string][string] update;
+		update["$set"]["username"] = req.form["username"];
+		update["$set"]["password"] = req.form["password"];
+		update["$set"]["email"] = req.form["email"];
+		update["$set"]["phone"] = req.form["phone"];
+		coll.updateOne(filter, update);
+        res.redirect("/users");
+		
+		/*
+		TODO: Por questão de segurança armazenar o ID em sessão e só tentar alterar se o ID for o mesmo buscado no banco de dados
+		para evitar que o usuário tente alterar um documento com ID de outro usuário hackeando assim o sistema
+		*/
+	}
 	
 	/*
 	// POST /logout
