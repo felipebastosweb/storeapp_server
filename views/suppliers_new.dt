@@ -6,7 +6,7 @@ block contents
 			.col-12
 				h2& New Supplier
 		section.row
-			form(action="/suppliers", method="POST")
+			form(action="/suppliers", method="POST", enctype="multipart/form-data")
 				include suppliers__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
