@@ -35,7 +35,7 @@ class CustomerController {
 	}
 	
 
-	// GET /customers/:customer
+	// GET /customers/:_id
     @method(HTTPMethod.GET)
 	@path("/customers/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
@@ -51,7 +51,7 @@ class CustomerController {
 		}
     }
 	
-	// GET /
+	// GET /customers/new
 	@method(HTTPMethod.GET)
 	@path("/customers/new")
 	void new_form()
@@ -63,6 +63,61 @@ class CustomerController {
 		auto customer = Customer();
 		render!("customers_new.dt", customer);
 	}
-	
+    
+	// POST /customers
+    @method(HTTPMethod.POST)
+	@path("/customers")
+	void create(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		Customer customer;
+		customer._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		customer.name = req.form["name"];
+		customer.address = req.form["address"];
+		customer.email = req.form["email"];
+		customer.site = req.form["site"];
+		customer.phone1 = req.form["phone1"];
+		customer.phone2 = req.form["phone2"];
+		coll.insertOne(customer);
+        res.redirect("/customers");
+	}
+    
+	// GET /customers/:_id/edit
+	@method(HTTPMethod.GET)
+	@path("/customers/:_id/edit")
+	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("customer/index.dt", authenticated);
+		*/
+		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
+        auto customerNullable = coll.findOne!Customer(Q());
+		if (! customerNullable.isNull) {
+			// Acessar os campos da estrutura Brand
+			Customer customer = customerNullable.get;
+			render!("customers_edit.dt", brand);
+		}
+	}
+
+    // POST /customers/:_id
+	@method(HTTPMethod.POST)
+	@path("/customers/:_id")
+	void change(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+        // filter
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        // update
+		Bson[string][string] update;
+		update["$set"]["name"] = req.form["name"];
+		update["$set"]["address"] = req.form["address"];
+		update["$set"]["site"] = req.form["site"];
+		update["$set"]["email"] = req.form["email"];
+		update["$set"]["phone1"] = req.form["phone1"];
+		update["$set"]["phone2"] = req.form["phone2"];
+		coll.updateOne(filter, update);
+        res.redirect("/customers");
+	}
     
 }
