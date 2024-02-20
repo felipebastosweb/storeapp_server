@@ -15,5 +15,5 @@ struct Supplier {
     string phone2;
     string site;
     string email;
-    @optional Purchase[int] purchases;
+    @optional Purchase[] purchases;
 }

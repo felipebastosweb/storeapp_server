@@ -11,7 +11,8 @@ import models.employee;
 
 struct Shop {
     BsonObjectID _id;
-    User owner;
+    string user_id;
+    @optional User user;
     string name;
     string fantasy_name;
     string slug;
@@ -24,7 +25,7 @@ struct Shop {
     string email;
     string phone1;
     string phone2;
-    @optional Employee[int] employees;
-    @optional Purchase[int] purchases;
-    @optional Order[int] orders;
+    @optional Employee[] employees;
+    @optional Purchase[] purchases;
+    @optional Order[] orders;
 }

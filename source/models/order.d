@@ -21,7 +21,8 @@ struct Order {
 
 struct OrderItem {
     BsonObjectID _id;
-    Order order;
+    string order_id;
+    @optional Order order;
     double quantity;
     double price;
     double total;

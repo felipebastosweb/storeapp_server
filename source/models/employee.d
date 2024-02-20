@@ -12,7 +12,8 @@ import enums.gender;
 
 struct Employee {
     BsonObjectID _id;
-    Shop shop;
+    string shop_id;
+    @optional Shop shop;
     string name;
     Gender gender;
     Date birthDate;
