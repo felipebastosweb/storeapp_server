@@ -1,0 +1,5 @@
+p #{employee.name}
+p #{employee.address}
+p #{employee.email}
+p #{employee.phone1}
+p #{employee.phone2}

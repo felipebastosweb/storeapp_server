@@ -4,8 +4,8 @@ block contents
 	article.container
 		header.row
 			.col-12
-				h2& Product
+				h2& Employee
 		section.row
-			include products__product
+			include employees__employee
 			.mb-3
 				button.btn.btn-secondary(onclick="javascript::window.close()")& Back

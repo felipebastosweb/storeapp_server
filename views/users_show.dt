@@ -6,6 +6,6 @@ block contents
 			.col-12
 				h2& User
 		section.row
-			include users__user, user
+			include users__user
 			.mb-3
 				button.btn.btn-secondary(onclick="javascript::window.close()")& Back

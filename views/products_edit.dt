@@ -9,7 +9,7 @@ block contents
 			form(action="/products", method="PUT")
                 .mb-3
                     input(type="hidden", name="_id", value="#{product._id}")
-                include products__form, product
+                include products__form
                 .mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
 					button.btn.btn-primary(type="submit")& Confirm

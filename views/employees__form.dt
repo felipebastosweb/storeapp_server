@@ -1,0 +1,12 @@
+.mb-3
+	label.form-label& Name
+	input.form-control(type="text", name="name", value="#{employee.name}")
+.mb-3
+	label.form-label& Email
+	input.form-control(type="email", name="email", value="#{employee.email}")
+.mb-3
+	label.form-label& Telephone 1
+	input.form-control(type="phone", name="phone1", value="#{employee.phone1}")
+.mb-3
+	label.form-label& Telephone 2
+	input.form-control(type="phone", name="phone2", value="#{employee.phone2}")

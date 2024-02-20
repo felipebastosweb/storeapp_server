@@ -6,9 +6,7 @@ block contents
             .col-12
                 h2& Edit User
         section.row
-            form(action="/users", method="PUT")
-                .mb-3
-                    input(type="hidden", name="_id", value="#{user._id.toString()}")
+            form(action="/users/#{user._id.toString()}", method="POST", enctype="multipart/form-data")
                 include users__form
                 .mb-3
                     button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
