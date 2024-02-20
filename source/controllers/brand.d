@@ -63,5 +63,20 @@ class BrandController {
 		auto brand = Brand();
 		render!("brands_new.dt", brand);
 	}
+
+    @method(HTTPMethod.POST)
+	@path("/brands")
+	void create(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		Brand brand;
+		brand._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		brand.name = req.form["name"];
+		brand.email = req.form["email"];
+		brand.site = req.form["site"];
+		brand.phone1 = req.form["phone1"];
+		brand.phone2 = req.form["phone2"];
+		coll.insertOne(brand);
+        res.redirect("/brands");
+	}
     
 }
