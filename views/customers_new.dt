@@ -6,7 +6,7 @@ block contents
 			.col-12
 				h2& New Customer
 		section.row
-			form(action="/customers", method="POST")
+			form(action="/customers", method="POST", enctype="multipart/form-data")
 				include customers__form
 				.mb-3
 					button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
