@@ -19,7 +19,7 @@ struct Shop {
     string federal_registration_number;
     string zone_registration_number;
     string municipal_registration_number;
-    DateTime date_registration_status;
+    Date date_registration_status;
     string address;
     string site;
     string email;
