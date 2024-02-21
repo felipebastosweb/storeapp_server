@@ -18,7 +18,7 @@
 	input.form-control(type="text", name="municipal_registration_number", value="#{shop.municipal_registration_number}")
 .mb-3
 	label.form-label& Date Registration Status
-	input.form-control(type="date", name="date_registration_status", value="#{shop.date_registration_status}")
+	input.form-control(type="date", name="date_registration_status", value="#{shop.date_registration_status.toSimpleString()}")
 .mb-3
 	label.form-label& Address
 	textarea.form-control(name="address", rows="3") #{shop.address}
