@@ -40,16 +40,16 @@ class ShopController {
 		render!("shops_index.dt", shops);
 	}
 
-    // GET /users/:usernameeeeeeeee
+    // GET /shops/:_id
     @method(HTTPMethod.GET)
-	@path("/shops/:slug")
+	@path("/shops/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string slug; }
-        auto shopNullable = coll.findOne!Shop(Q(req.params["slug"]));
-		if (! shopNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Shop(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto shop = shopNullable.get;
+			auto shop = docNullable.get;
 			render!("shops_show.dt", shop);
 		} else {
 
@@ -77,7 +77,11 @@ class ShopController {
 		Shop shop;
 		shop._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
 		shop.name = req.form["name"];
-		shop.description = req.form["description"];
+		shop.fantasy_name = req.form["fantasy_name"];
+		shop.federal_registration_number = req.form["federal_registration_number"];
+		shop.zone_registration_number = req.form["zone_registration_number"];
+		shop.municipal_registration_number = req.form["municipal_registration_number"];
+		shop.date_registration_status = Date.fromSimpleString(req.form["date_registration_status"]);
 		shop.address = req.form["address"];
 		shop.email = req.form["email"];
 		shop.site = req.form["site"];
@@ -96,11 +100,11 @@ class ShopController {
 		bool authenticated = ms_authenticated;
 		render!("shop_index.dt", authenticated);
 		*/
-		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
-        auto shopNullable = coll.findOne!Shop(Q());
-		if (! shopNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Shop(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Brand
-			Shop shop = shopNullable.get;
+			Shop shop = docNullable.get;
 			render!("shops_edit.dt", shop);
 		}
 	}
@@ -117,7 +121,11 @@ class ShopController {
         // update
 		Bson[string][string] update;
 		update["$set"]["name"] = req.form["name"];
-		update["$set"]["description"] = req.form["description"];
+		update["$set"]["fantasy_name"] = req.form["fantasy_name"];
+		update["$set"]["federal_registration_number"] = req.form["federal_registration_number"];
+		update["$set"]["zone_registration_number"] = req.form["zone_registration_number"];
+		update["$set"]["municipal_registration_number"] = req.form["municipal_registration_number"];
+		update["$set"]["date_registration_status"] = req.form["date_registration_status"];
 		update["$set"]["address"] = req.form["address"];
 		update["$set"]["site"] = req.form["site"];
 		update["$set"]["email"] = req.form["email"];

@@ -41,13 +41,13 @@ class PurchaseController {
 	}
 	
 
-	// GET /users/:usernameeeeeeeee
+	// GET /users/:_id
     @method(HTTPMethod.GET)
-	@path("/purchases/:slug")
+	@path("/purchases/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string slug; }
-        auto purchaseNullable = coll.findOne!Purchase(Q(req.params["slug"]));
+		struct Q { BsonObjectID _id; }
+        auto purchaseNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
 		if (! purchaseNullable.isNull) {
 			// Acessar os campos da estrutura Customer
 			auto purchase = purchaseNullable.get;

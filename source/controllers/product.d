@@ -38,16 +38,16 @@ class ProductController {
 	}
 	
 
-	// GET /users/:usernameeeeeeeee
+	// GET /users/:_id
     @method(HTTPMethod.GET)
-	@path("/products/:sku")
+	@path("/products/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string sku; }
-        auto productNullable = coll.findOne!Product(Q(req.params["sku"]));
-		if (! productNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Product(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Product
-			auto product = productNullable.get;
+			auto product = docNullable.get;
 			render!("products_show.dt", product);
 		} else {
 

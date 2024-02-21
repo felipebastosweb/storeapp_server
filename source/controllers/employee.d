@@ -34,16 +34,16 @@ class EmployeeController {
 	}
 	
 
-	// GET /users/:usernameeeeeeeee
+	// GET /employees/:_id
     @method(HTTPMethod.GET)
-	@path("/employees/:slug")
+	@path("/employees/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string name; }
-        auto employeeNullable = coll.findOne!Employee(Q(req.params["slug"]));
-		if (! employeeNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Employee(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Employee
-			auto employee = employeeNullable.get;
+			auto employee = docNullable.get;
 			render!("employees_show.dt", employee);
 		} else {
 

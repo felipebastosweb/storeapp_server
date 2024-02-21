@@ -41,10 +41,10 @@ class CustomerController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { string _id; }
-        auto customerNullable = coll.findOne!Customer(Q(req.params["_id"]));
-		if (! customerNullable.isNull) {
+        auto docNullable = coll.findOne!Customer(Q(req.params["_id"]));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto customer = customerNullable.get;
+			auto customer = docNullable.get;
 			render!("customers_show.dt", customer);
 		} else {
 
@@ -72,9 +72,9 @@ class CustomerController {
 		Customer customer;
 		customer._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
 		customer.name = req.form["name"];
+		customer.social_name = req.form["social_name"];
 		customer.address = req.form["address"];
 		customer.email = req.form["email"];
-		customer.site = req.form["site"];
 		customer.phone1 = req.form["phone1"];
 		customer.phone2 = req.form["phone2"];
 		coll.insertOne(customer);
@@ -90,12 +90,12 @@ class CustomerController {
 		bool authenticated = ms_authenticated;
 		render!("customer/index.dt", authenticated);
 		*/
-		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
-        auto customerNullable = coll.findOne!Customer(Q());
-		if (! customerNullable.isNull) {
+		struct Q { string _id; }
+        auto docNullable = coll.findOne!Customer(Q(req.params["_id"]));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Brand
-			Customer customer = customerNullable.get;
-			render!("customers_edit.dt", brand);
+			Customer customer = docNullable.get;
+			render!("customers_edit.dt", customer);
 		}
 	}
 
@@ -111,8 +111,8 @@ class CustomerController {
         // update
 		Bson[string][string] update;
 		update["$set"]["name"] = req.form["name"];
+		update["$set"]["social_name"] = req.form["social_name"];
 		update["$set"]["address"] = req.form["address"];
-		update["$set"]["site"] = req.form["site"];
 		update["$set"]["email"] = req.form["email"];
 		update["$set"]["phone1"] = req.form["phone1"];
 		update["$set"]["phone2"] = req.form["phone2"];

@@ -34,6 +34,22 @@ class SupplierController {
 		render!("suppliers_index.dt", suppliers);
 	}
 
+    // GET /suppliers/:_id
+    @method(HTTPMethod.GET)
+	@path("/suppliers/:_id")
+    void show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Supplier(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Supplier
+			auto supplier = docNullable.get;
+			render!("suppliers_show.dt", supplier);
+		} else {
+
+		}
+    }
+	
     
 	// GET /suppliers/new
 	@method(HTTPMethod.GET)
@@ -76,8 +92,8 @@ class SupplierController {
 		bool authenticated = ms_authenticated;
 		render!("supplier/index.dt", authenticated);
 		*/
-		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
-        auto docNullable = coll.findOne!Supplier(Q());
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Supplier(Q(BsonObjectID.fromString(req.params["_id"])));
 		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Brand
 			Supplier supplier = docNullable.get;

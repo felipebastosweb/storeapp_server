@@ -39,16 +39,16 @@ class UserController {
 	}
 	
 
-	// GET /users/:usernameeeeeeeee
+	// GET /users/:_id
     @method(HTTPMethod.GET)
-	@path("/users/:username")
+	@path("/users/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string username; }
-        auto userNullable = coll.findOne!User(Q(req.params["username"]));
-		if (! userNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!User(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura User
-			auto user = userNullable.get;
+			auto user = docNullable.get;
 			render!("users_show.dt", user);
 		} else {
 
@@ -105,20 +105,20 @@ class UserController {
 
 	}
 	
-	// GET /
+	// GET /users/:_id/edit
 	@method(HTTPMethod.GET)
-	@path("/users/:username/edit")
+	@path("/users/:_id/edit")
 	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
 	{
 		/*
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		struct Q { string username; }
-        auto userNullable = coll.findOne!User(Q(req.params["username"]));
-		if (! userNullable.isNull) {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!User(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura User
-			User user = userNullable.get;
+			User user = docNullable.get;
 			render!("users_edit.dt", user);
 		}
 	}

@@ -40,8 +40,8 @@ class BrandController {
 	@path("/brands/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
-        auto brandNullable = coll.findOne!Brand(Q());
+		struct Q { BsonObjectID _id; }
+        auto brandNullable = coll.findOne!Brand(Q(BsonObjectID.fromString(req.params["_id"])));
 		if (! brandNullable.isNull) {
 			// Acessar os campos da estrutura Customer
 			auto brand = brandNullable.get;
@@ -91,8 +91,8 @@ class BrandController {
 		bool authenticated = ms_authenticated;
 		render!("brand/index.dt", authenticated);
 		*/
-		struct Q { BsonObjectID _id = BsonObjectID.fromString(req.params["_id"]); }
-        auto brandNullable = coll.findOne!Brand(Q());
+		struct Q { BsonObjectID _id; }
+        auto brandNullable = coll.findOne!Brand(Q(BsonObjectID.fromString(req.params["_id"])));
 		if (! brandNullable.isNull) {
 			// Acessar os campos da estrutura Brand
 			Brand brand = brandNullable.get;
