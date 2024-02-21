@@ -34,6 +34,19 @@ class CustomerController {
 		render!("customers_index.dt", customers);
 	}
 	
+	// GET /customers/new
+	@method(HTTPMethod.GET)
+	@path("/customers/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("customer_index.dt", authenticated);
+		*/
+		auto customer = Customer();
+		render!("customers_new.dt", customer);
+	}
+	
 
 	// GET /customers/:_id
     @method(HTTPMethod.GET)
@@ -50,19 +63,6 @@ class CustomerController {
 
 		}
     }
-	
-	// GET /customers/new
-	@method(HTTPMethod.GET)
-	@path("/customers/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("customer_index.dt", authenticated);
-		*/
-		auto customer = Customer();
-		render!("customers_new.dt", customer);
-	}
     
 	// POST /customers
     @method(HTTPMethod.POST)

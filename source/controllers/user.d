@@ -38,6 +38,18 @@ class UserController {
 		render!("users_index.dt", users);
 	}
 	
+	// GET /users/new
+	@method(HTTPMethod.GET)
+	@path("/users/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("user/index.dt", authenticated);
+		*/
+		auto user = User();
+		render!("users_new.dt", user);
+	}
 
 	// GET /users/:_id
     @method(HTTPMethod.GET)
@@ -54,19 +66,6 @@ class UserController {
 
 		}
     }
-	
-	// GET /
-	@method(HTTPMethod.GET)
-	@path("/users/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
-		*/
-		auto user = User();
-		render!("users_new.dt", user);
-	}
 	
 	// POST /users (username and password are automatically read as form fields)
 	@method(HTTPMethod.POST)

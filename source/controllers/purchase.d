@@ -40,6 +40,21 @@ class PurchaseController {
 		render!("purchases_index.dt", purchases);
 	}
 	
+	// GET /
+	@method(HTTPMethod.GET)
+	@path("/purchases/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("user/index.dt", authenticated);
+		*/
+        auto purchase = Purchase();
+		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+		auto suppliers = coll_supplier.find().map!(bson => deserializeBson!Supplier(bson));
+		render!("purchases_new.dt", purchase, shops, suppliers);
+	}
+	
 
 	// GET /users/:_id
     @method(HTTPMethod.GET)
@@ -56,20 +71,5 @@ class PurchaseController {
 
 		}
     }
-	
-	// GET /
-	@method(HTTPMethod.GET)
-	@path("/purchases/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
-		*/
-        auto purchase = Purchase();
-		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
-		auto suppliers = coll_supplier.find().map!(bson => deserializeBson!Supplier(bson));
-		render!("purchases_new.dt", purchase, shops, suppliers);
-	}
     
 }

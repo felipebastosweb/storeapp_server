@@ -37,6 +37,20 @@ class ProductController {
 		render!("products_index.dt", products);
 	}
 	
+	// GET /
+	@method(HTTPMethod.GET)
+	@path("/products/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("product_index.dt", authenticated);
+		*/
+        auto product = Product();
+		auto brands = coll_brand.find().map!(bson => deserializeBson!Brand(bson));
+		render!("products_new.dt", product, brands);
+	}
+	
 
 	// GET /users/:_id
     @method(HTTPMethod.GET)
@@ -53,18 +67,4 @@ class ProductController {
 
 		}
     }
-	
-	// GET /
-	@method(HTTPMethod.GET)
-	@path("/products/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("product_index.dt", authenticated);
-		*/
-        auto product = Product();
-		auto brands = coll_brand.find().map!(bson => deserializeBson!Brand(bson));
-		render!("products_new.dt", product, brands);
-	}
 }

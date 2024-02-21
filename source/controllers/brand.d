@@ -34,6 +34,19 @@ class BrandController {
 		render!("brands_index.dt", brands);
 	}
 	
+	// GET /brands/new
+	@method(HTTPMethod.GET)
+	@path("/brands/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("user/index.dt", authenticated);
+		*/
+		auto brand = Brand();
+		render!("brands_new.dt", brand);
+	}
+	
 
 	// GET /brands/:_id
     @method(HTTPMethod.GET)
@@ -50,19 +63,6 @@ class BrandController {
 
 		}
     }
-	
-	// GET /brands/new
-	@method(HTTPMethod.GET)
-	@path("/brands/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("user/index.dt", authenticated);
-		*/
-		auto brand = Brand();
-		render!("brands_new.dt", brand);
-	}
 
 	// POST /brands
     @method(HTTPMethod.POST)

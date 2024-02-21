@@ -39,6 +39,19 @@ class ShopController {
 		auto shops = coll.find().map!(bson => deserializeBson!Shop(bson));
 		render!("shops_index.dt", shops);
 	}
+	
+	// GET /
+	@method(HTTPMethod.GET)
+	@path("/shops/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("shops/index.dt", authenticated);
+		*/
+        auto shop = Shop();
+		render!("shops_new.dt", shop);
+	}
 
     // GET /shops/:_id
     @method(HTTPMethod.GET)
@@ -55,19 +68,6 @@ class ShopController {
 
 		}
     }
-	
-	// GET /
-	@method(HTTPMethod.GET)
-	@path("/shops/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("shops/index.dt", authenticated);
-		*/
-        auto shop = Shop();
-		render!("shops_new.dt", shop);
-	}
 
 	// POST /shops
     @method(HTTPMethod.POST)

@@ -40,6 +40,21 @@ class OrderController {
 		render!("orders_index.dt", orders);
 	}
 	
+	// GET /orders/new
+	@method(HTTPMethod.GET)
+	@path("/orders/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("order_index.dt", authenticated);
+		*/
+		auto order = Order();
+		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+		auto customers = coll_customer.find().map!(bson => deserializeBson!Customer(bson));
+		render!("orders_new.dt", order, shops, customers);
+	}
+	
 	/*
 	// GET /orders/:_id
     @method(HTTPMethod.GET)
@@ -58,18 +73,4 @@ class OrderController {
     }
 	*/
 
-	// GET /orders/new
-	@method(HTTPMethod.GET)
-	@path("/orders/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("order_index.dt", authenticated);
-		*/
-		auto order = Order();
-		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
-		auto customers = coll_customer.find().map!(bson => deserializeBson!Customer(bson));
-		render!("orders_new.dt", order, shops, customers);
-	}
 }

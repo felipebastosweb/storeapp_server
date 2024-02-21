@@ -33,6 +33,19 @@ class SupplierController {
 		auto suppliers = coll.find().map!(bson => deserializeBson!Supplier(bson));
 		render!("suppliers_index.dt", suppliers);
 	}
+    
+	// GET /suppliers/new
+	@method(HTTPMethod.GET)
+	@path("/suppliers/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("suppliers/index.dt", authenticated);
+		*/
+		auto supplier = Supplier();
+		render!("suppliers_new.dt", supplier);
+	}
 
     // GET /suppliers/:_id
     @method(HTTPMethod.GET)
@@ -50,21 +63,6 @@ class SupplierController {
 		}
     }
 	
-    
-	// GET /suppliers/new
-	@method(HTTPMethod.GET)
-	@path("/suppliers/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("suppliers/index.dt", authenticated);
-		*/
-		auto supplier = Supplier();
-		render!("suppliers_new.dt", supplier);
-	}
-    
-
 	// POST /suppliers
     @method(HTTPMethod.POST)
 	@path("/suppliers")

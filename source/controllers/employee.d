@@ -33,6 +33,19 @@ class EmployeeController {
 		render!("employees_index.dt", employees);
 	}
 	
+	// GET /employees/new
+	@method(HTTPMethod.GET)
+	@path("/employees/new")
+	void new_form()
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("employees_index.dt", authenticated);
+		*/
+		auto employee = Employee();
+		render!("employees_new.dt", employee);
+	}
+	
 
 	// GET /employees/:_id
     @method(HTTPMethod.GET)
@@ -49,17 +62,4 @@ class EmployeeController {
 
 		}
     }
-	
-	// GET /
-	@method(HTTPMethod.GET)
-	@path("/employees/new")
-	void new_form()
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("employees_index.dt", authenticated);
-		*/
-		auto employee = Employee();
-		render!("employees_new.dt", employee);
-	}
 }
