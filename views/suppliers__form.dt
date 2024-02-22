@@ -5,6 +5,9 @@
 	label.form-label& Description
 	textarea.form-control(type="text", name="description") #{supplier.description}
 .mb-3
+	label.form-label& Address
+	textarea.form-control(type="text", name="address") #{supplier.address}
+.mb-3
 	label.form-label& Site
 	input.form-control(type="url", name="site", value="#{supplier.site}")
 .mb-3

@@ -5,9 +5,6 @@
 	label.form-label& Fantasy Name
 	input.form-control(type="text", name="fantasy_name", value="#{shop.fantasy_name}")
 .mb-3
-	label.form-label& Slug
-	input.form-control(type="text", name="slug", value="#{shop.slug}")
-.mb-3
 	label.form-label& Federal Inscription Number
 	input.form-control(type="text", name="federal_registration_number", value="#{shop.federal_registration_number}")
 .mb-3
@@ -18,7 +15,7 @@
 	input.form-control(type="text", name="municipal_registration_number", value="#{shop.municipal_registration_number}")
 .mb-3
 	label.form-label& Date Registration Status
-	input.form-control(type="date", name="date_registration_status", value="#{shop.date_registration_status.toSimpleString()}")
+	input.form-control(type="date", name="date_registration_status", value="#{shop.date_registration_status.toISOExtString()}")
 .mb-3
 	label.form-label& Address
 	textarea.form-control(name="address", rows="3") #{shop.address}

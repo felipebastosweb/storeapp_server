@@ -3,8 +3,11 @@ extends layout_default
 block contents
     article.container
         header.row
-            .col-12
+            .col-6
                 h2& Employees
+            .col-6
+                a(href="/employees/new", class="btn btn-primary", target="_blank")
+                    i.bi.bi-plus
         section.row
             - foreach(employee; employees)
                 article#user.col-3(style="padding:5px;")

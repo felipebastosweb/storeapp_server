@@ -3,22 +3,30 @@ extends layout_default
 block contents
     article.container
         header.row
-            .col-12
+            .col-6
                 h2& Products
+            .col-6
+                a(href="/products/new", class="btn btn-primary", target="_blank")
+                    i.bi.bi-plus
         section.row
-            - foreach(product; products)
-                article#product.col-3(style="padding:5px;")
-                    .card
-                        .card-body
-                            h3.card-title #{product.name}
-                            p.card-text
-                                | Description: #{product.description}
-                                | Model: #{product.model}
-                                | Ean: #{product.ean}
-                                a(href="/products/#{product.sku}", class="btn btn-info", target="_blank")
-                                    i.bi.bi-eye
-                                a(href="/products/#{product.sku}/edit", class="btn btn-warning", target="_blank")
-                                    i.bi.bi-pencil
-                                a(href="/products/#{product.sku}/delete", class="btn btn-danger", target="_blank")
-                                    i.bi.bi-trash
-                                    
+            - if (! products.empty)
+                - foreach(product; products)
+                    article#product.col-3(style="padding:5px;")
+                        .card
+                            .card-body
+                                h3.card-title #{product.name}
+                                p.card-text
+                                    | Description: #{product.description}
+                                    | Model: #{product.model}
+                                    | Ean: #{product.ean}
+                                    a(href="/products/#{product.sku}", class="btn btn-info", target="_blank")
+                                        i.bi.bi-eye
+                                    a(href="/products/#{product.sku}/edit", class="btn btn-warning", target="_blank")
+                                        i.bi.bi-pencil
+                                    a(href="/products/#{product.sku}/delete", class="btn btn-danger", target="_blank")
+                                        i.bi.bi-trash
+            - else
+                article.col-12
+                    h3 No registered products
+                    p Click in bottom to add a product
+                    button(class="btn btn-primary", onclick="window.location='/products/new'") Add new Product
