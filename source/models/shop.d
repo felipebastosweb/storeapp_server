@@ -15,7 +15,6 @@ struct Shop {
     @optional User user;
     string name;
     string fantasy_name;
-    string slug;
     string federal_registration_number;
     string zone_registration_number;
     string municipal_registration_number;
