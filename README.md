@@ -12,9 +12,9 @@ storeapp/source
 storeapp/views
 
 # Rodar
-Execute o comando dub na pasta storeapp que irá compilar e executar o .exe. Depois, basta executar o .exese não quiser compilar novamente..........
+Execute o comando dub na pasta storeapp que irá compilar e executar o .exe. Depois, basta executar o .exe. Caso não queira compilar novamente basta abrir o executável no shell ou console de sua preferência (Prompt de Comandos, Power Shell, etc) usando o comando: .\storeapp.exe.
 
-Abra o navegador na página http://localhost:8080
+Abra a página http://localhost:8080 no navegador.
 
 ![Tela principal](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/home.png)
 
