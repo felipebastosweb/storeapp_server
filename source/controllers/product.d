@@ -5,6 +5,7 @@ import std.stdio;
 import vibe.d;
 import vibe.db.mongo.mongo;
 
+import std.conv;
 import std.algorithm: map;
 
 import database;
@@ -24,7 +25,7 @@ class ProductController {
 		coll_brand = client.getCollection("storeapp.brands");
     }
     
-	// GET /
+	// GET /products
 	@method(HTTPMethod.GET)
 	@path("/products")
 	void index()
@@ -33,7 +34,7 @@ class ProductController {
 		bool authenticated = ms_authenticated;
 		render!("product/index.dt", authenticated);
 		*/
-		auto products = coll.find().map!(bson => deserializeBson!Product(bson));
+		auto products = coll.find().sort(["name": 1]).map!(bson => deserializeBson!Product(bson));
 		render!("products_index.dt", products);
 	}
 	
@@ -47,10 +48,33 @@ class ProductController {
 		render!("product_index.dt", authenticated);
 		*/
         auto product = Product();
-		auto brands = coll_brand.find().map!(bson => deserializeBson!Brand(bson));
+		auto brands = coll_brand.find().sort(["name": 1]).map!(bson => deserializeBson!Brand(bson));
 		render!("products_new.dt", product, brands);
 	}
 	
+	// POST /products
+    @method(HTTPMethod.POST)
+	@path("/products")
+	void create(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		struct Q { BsonObjectID _id; }
+		Product product;
+		product._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		product.name = req.form["name"];
+		product.description = req.form["description"];
+		product.model = req.form["model"];
+		product.sku = req.form["sku"];
+		product.ean = req.form["ean"];
+		product.measure_unit = req.form["measure_unit"];
+		product.width = to!double(req.form["width"]);
+		product.height = to!double(req.form["height"]);
+		product.length = to!double(req.form["length"]);
+		product.weight = to!double(req.form["weight"]);
+		product.brand_id = req.form["brand_id"];
+		product.brand = coll_brand.findOne!Brand(Q(BsonObjectID.fromString(product.brand_id))).get;
+		coll.insertOne(product);
+        res.redirect("/products");
+	}
 
 	// GET /users/:_id
     @method(HTTPMethod.GET)
