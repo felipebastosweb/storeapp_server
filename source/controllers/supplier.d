@@ -30,7 +30,7 @@ class SupplierController {
 		bool authenticated = ms_authenticated;
 		render!("suppliers_index.dt", authenticated);
 		*/
-		auto suppliers = coll.find().map!(bson => deserializeBson!Supplier(bson));
+		auto suppliers = coll.find().sort(["name": 1]).map!(bson => deserializeBson!Supplier(bson));
 		render!("suppliers_index.dt", suppliers);
 	}
     

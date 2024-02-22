@@ -30,7 +30,7 @@ class CustomerController {
 		bool authenticated = ms_authenticated;
 		render!("customer_index.dt", authenticated);
 		*/
-		auto customers = coll.find().map!(bson => deserializeBson!Customer(bson));
+		auto customers = coll.find().sort(["name": 1]).map!(bson => deserializeBson!Customer(bson));
 		render!("customers_index.dt", customers);
 	}
 	

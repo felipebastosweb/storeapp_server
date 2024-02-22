@@ -36,7 +36,7 @@ class PurchaseController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		auto purchases = coll.find().map!(bson => deserializeBson!Purchase(bson));
+		auto purchases = coll.find().sort(["purchase_date": 1]).map!(bson => deserializeBson!Purchase(bson));
 		render!("purchases_index.dt", purchases);
 	}
 	

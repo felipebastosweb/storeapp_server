@@ -29,7 +29,7 @@ class EmployeeController {
 		bool authenticated = ms_authenticated;
 		render!("employees_index.dt", authenticated);
 		*/
-		auto employees = coll.find().map!(bson => deserializeBson!Employee(bson));
+		auto employees = coll.find().sort(["name": 1]).map!(bson => deserializeBson!Employee(bson));
 		render!("employees_index.dt", employees);
 	}
 	

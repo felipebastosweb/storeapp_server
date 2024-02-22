@@ -24,6 +24,33 @@ class UserController {
 		client = connectMongoDB("127.0.0.1");
 		coll = client.getCollection("storeapp.users");
 	}
+
+	
+	unittest {
+		User user;
+		user._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		user.username = "user";
+		user.password = "<PASSWORD>";
+		user.email = "<EMAIL>";
+		user.phone = "<EMAIL>";
+		
+		assertEqual(user.validatePassword("<WRONG PASSWORD>"), false);
+		assertEqual(user.validatePassword("1234567890"), false);
+		assertEqual(user.validatePassword("<CORRECT PASSWORD>", true));
+		
+		/*
+		// Não consegui implementar a autenticação do MongoDB no unittest por causa do MongoDB.Driver.dll
+		MongoClientSettings settings = new MongoClientSettings();
+		settings.ServerSelectionTimeout = TimeSpan.FromSeconds(1);
+		MongoClient client = new MongoClient(settings);
+		client.Connecting += (sender, e) => ms_connected = true;
+		client.ServerOpening += (sender, e) => ms_opened = true;
+		assertTrue(client.WaitForServerReady());
+		assertTrue(ms_connected);
+		assertFalse(ms_opened);
+		*/
+
+	}
     
 	// GET /
 	@method(HTTPMethod.GET)
@@ -34,7 +61,7 @@ class UserController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		auto users = coll.find().map!(bson => deserializeBson!User(bson));
+		auto users = coll.find().sort(["username": 1]).map!(bson => deserializeBson!User(bson));
 		render!("users_index.dt", users);
 	}
 	
@@ -51,22 +78,6 @@ class UserController {
 		render!("users_new.dt", user);
 	}
 
-	// GET /users/:_id
-    @method(HTTPMethod.GET)
-	@path("/users/:_id")
-    void show(HTTPServerRequest req, HTTPServerResponse res)
-    {
-		struct Q { BsonObjectID _id; }
-        auto docNullable = coll.findOne!User(Q(BsonObjectID.fromString(req.params["_id"])));
-		if (! docNullable.isNull) {
-			// Acessar os campos da estrutura User
-			auto user = docNullable.get;
-			render!("users_show.dt", user);
-		} else {
-
-		}
-    }
-	
 	// POST /users (username and password are automatically read as form fields)
 	@method(HTTPMethod.POST)
 	@path("/users")
@@ -93,9 +104,6 @@ class UserController {
 			// If there was an error, show the form again with an error message
 			res.setStatusCode(409);  // Conflict
 		}
-		*/
-
-		/*
 		enforceHTTP(username == "user" && password == "secret",
 			HTTPStatus.forbidden, "Invalid user name or password.");
 		ms_authenticated = true;
@@ -103,6 +111,23 @@ class UserController {
 		*/
 
 	}
+
+	// GET /users/:_id
+    @method(HTTPMethod.GET)
+	@path("/users/:_id")
+    void show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!User(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura User
+			auto user = docNullable.get;
+			render!("users_show.dt", user);
+		} else {
+
+		}
+    }
+	
 	
 	// GET /users/:_id/edit
 	@method(HTTPMethod.GET)

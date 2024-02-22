@@ -36,7 +36,7 @@ class OrderController {
 		bool authenticated = ms_authenticated;
 		render!("orders_index.dt", authenticated);
 		*/
-		auto orders = coll.find().map!(bson => deserializeBson!Order(bson));
+		auto orders = coll.find().sort(["request_date": 1]).map!(bson => deserializeBson!Order(bson));
 		render!("orders_index.dt", orders);
 	}
 	

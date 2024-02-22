@@ -30,7 +30,7 @@ class BrandController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		auto brands = coll.find().map!(bson => deserializeBson!Brand(bson));
+		auto brands = coll.find().sort(["name": 1]).map!(bson => deserializeBson!Brand(bson));
 		render!("brands_index.dt", brands);
 	}
 	
@@ -73,7 +73,7 @@ class BrandController {
 		brand._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
 		brand.name = req.form["name"];
 		brand.description = req.form["description"];
-		brand.address = req.form["address"];
+		//brand.address = req.form["address"];
 		brand.email = req.form["email"];
 		brand.site = req.form["site"];
 		brand.phone1 = req.form["phone1"];

@@ -81,7 +81,7 @@ class ShopController {
 		shop.federal_registration_number = req.form["federal_registration_number"];
 		shop.zone_registration_number = req.form["zone_registration_number"];
 		shop.municipal_registration_number = req.form["municipal_registration_number"];
-		shop.date_registration_status = Date.fromSimpleString(req.form["date_registration_status"]);
+		shop.date_registration_status = Date.fromISOExtString(req.form["date_registration_status"]);
 		shop.address = req.form["address"];
 		shop.email = req.form["email"];
 		shop.site = req.form["site"];
@@ -105,6 +105,7 @@ class ShopController {
 		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Brand
 			Shop shop = docNullable.get;
+			writeln(shop.date_registration_status);
 			render!("shops_edit.dt", shop);
 		}
 	}
