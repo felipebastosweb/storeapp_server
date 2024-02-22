@@ -15,15 +15,21 @@
 	input.form-control(type="text", name="ean", value="#{product.ean}")
 .mb-3
 	label.form-label& Brand
-	select.form-control(name="brand")
+	select.form-control(name="brand_id")
 		- foreach(brand; brands)
 			option(value="#{brand._id.toString()}") #{brand.name}
+.mb-3
+	label.form-label& Unit Measure
+	select.form-control(name="measure_unit")
+		option(value="mm") Milímetro
+		option(value="cm") Centímetro
+		option(value="m") Metro
 .mb-3
 	label.form-label& Length
 	input.form-control(type="number", name="length", value="#{product.length}")
 .mb-3
-	label.form-label& Widht
-	input.form-control(type="number", name="widht", value="#{product.width}")
+	label.form-label& Width
+	input.form-control(type="number", name="width", value="#{product.width}")
 .mb-3
 	label.form-label& Height
 	input.form-control(type="number", name="height", value="#{product.height}")
