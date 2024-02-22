@@ -15,16 +15,17 @@ block contents
                         .card
                             .card-body
                                 h3.card-title #{purchase.supplier.name}
-                                h6.card-subtitle #{purchase.total}
-                                p.card-text
-                                    | Email: #{purchase.shop.name}
-                                    | Email: #{purchase.purchase_date}
-                                    a(href="/purchases/#{purchase._id}", class="btn btn-info", target="_blank")
-                                        i.bi.bi-eye
-                                    a(href="/purchases/#{purchase._id}/edit", class="btn btn-warning", target="_blank")
-                                        i.bi.bi-pencil
-                                    a(href="/purchases/#{purchase._id}/delete", class="btn btn-danger", target="_blank")
-                                        i.bi.bi-trash
+                                h6.card-subtitle Loja: #{purchase.shop.name}
+                                p.card-text Valor #{purchase.value}
+                                p.card-text Taxes #{purchase.taxes}
+                                p.card-text Total #{purchase.total}
+                                p.card-text Data da Compra: #{purchase.purchase_date.toISOExtString()}
+                                a(href="/purchases/#{purchase._id}", class="btn btn-info", target="_blank")
+                                    i.bi.bi-eye
+                                a(href="/purchases/#{purchase._id}/edit", class="btn btn-warning", target="_blank")
+                                    i.bi.bi-pencil
+                                a(href="/purchases/#{purchase._id}/delete", class="btn btn-danger", target="_blank")
+                                    i.bi.bi-trash
             - else
                 article.col-12
                     h3 No registered purchases
