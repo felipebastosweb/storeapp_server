@@ -39,10 +39,10 @@ struct Product {
     string brand_id; // obter id de  BsonObjectID Brand._Id
     @optional Brand brand;
     string measure_unit; // obter string de enum Measure
-    double width;
-    double height;
-    double length;
-    double weight;
+    double width = 0;
+    double height = 0;
+    double length = 0;
+    double weight = 0;
     @optional ProductWithOption[] product_with_options;
 }
 
