@@ -46,6 +46,8 @@ A Tela com a lista de usuários exibe os fornecedores cadastrados no sistema. A 
 
 ## Tela de Lista de Produtos
 
+![Tela de Lista de Fornecedores](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/products_index.png)
+
 ## Tela de Lista de Compras
 
 # O que será produzido em breve
