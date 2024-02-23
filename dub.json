@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"felip"
+	],
+	"copyright": "Copyright © 2024, felip",
+	"dependencies": {
+		"diet-ng": "~>1.8.1",
+		"vibe-d": "~>0.9"
+	},
+	"description": "A simple vibe.d server application.",
+	"license": "proprietary",
+	"name": "storeapp"
+}
