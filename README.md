@@ -50,6 +50,8 @@ A Tela com a lista de usuários exibe os fornecedores cadastrados no sistema. A 
 
 ## Tela de Lista de Compras
 
+![Tela de Lista de Fornecedores](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/purchases_index.png)
+
 # O que será produzido em breve
 Estes são os próximos recursos a serem desenvolvidos no sistema:
   - Autenticação de Usuário e Permissão
