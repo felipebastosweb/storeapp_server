@@ -15,7 +15,8 @@ block contents
                         .card
                             .card-body
                                 h3.card-title #{purchase.supplier.name}
-                                h6.card-subtitle Loja: #{purchase.shop.name}
+                                h6.card-subtitle
+                                    a(href="/shops/#{purchase.shop._id}", target="_blank") Loja: #{purchase.shop.name}
                                 p.card-text Valor #{purchase.value}
                                 p.card-text Taxes #{purchase.taxes}
                                 p.card-text Total #{purchase.total}
