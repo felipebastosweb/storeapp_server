@@ -15,11 +15,11 @@ block contents
                         .card
                             .card-body
                                 h3.card-title #{customer.name}
+                                p.card-text Name: #{customer.name}
+                                p.card-text Address: #{customer.address}
+                                p.card-text Phone 1: #{customer.phone1}
+                                p.card-text Phone 2: #{customer.phone2}
                                 p.card-text
-                                    | Name: #{customer.name}
-                                    | Address: #{customer.address}
-                                    | Phone 1: #{customer.phone1}
-                                    | Phone 2: #{customer.phone2}
                                     a(href="/customers/#{customer._id.toString()}", class="btn btn-info", target="_blank")
                                         i.bi.bi-eye
                                     a(href="/customers/#{customer._id.toString()}/edit", class="btn btn-warning", target="_blank")

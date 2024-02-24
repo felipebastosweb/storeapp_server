@@ -1,27 +1,35 @@
 extends layout_default
 
 block contents
-	article.container
-		header.row
-			.col-12
-				h2& Purchase
-		section.row
-			include purchases__purchase
+    article.container
+        header.row
+            .col-12
+                h2& Purchase
+        section.row
+            include purchases__purchase
             form(action="/puchases/#{purchase._id.toString()}/purchase-items/", method="POST")
-                include purchase_items__form
-                .mb-3
-                    button.btn.btn-primary(onclick="javascript::window.close()")& Add Item
+                ///include purchases_item__form
+                ///.mb-3
+                    ///button.btn.btn-primary(onclick="javascript::window.close()")& Add Item
             section.container
-                .row
+                header.row
+                    .col-12
+                        h4 Items of Purchase
+                aside.row
                     .col-6 Item Name
                     .col-2 Price
                     .col-2 Quantity
                     .col-2 Total
-                - foreach(purchase_item; pruchase_items)
-                    .row
-                        .col-6 #{purchase_item.product}
-                        .col-2 #{purchase_item.value}
+                - foreach(purchase_item; purchase.purchase_items)
+                    article.row
+                        .col-6 #{purchase_item.product.name}
+                        .col-2 #{purchase_item.price}
                         .col-2 #{purchase_item.quantity}
                         .col-2 #{purchase_item.total}
-			.mb-3
-				button.btn.btn-secondary(onclick="javascript::window.close()")& Back
+                aside.row
+                    .col-6 &nbsp;
+                    .col-2 &nbsp;
+                    .col-2 &nbsp;
+                    .col-2 Total #{purchase.total}
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Back

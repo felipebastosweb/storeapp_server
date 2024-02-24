@@ -11,6 +11,9 @@
 		option(value="Female")& Female
 		option(value="Male")& Male
 .mb-3
+	label.form-label& Address
+	textarea.form-control(name="address", value="#{customer.address}")
+.mb-3
 	label.form-label& Email
 	input.form-control(type="email", name="email", value="#{customer.email}")
 .mb-3
