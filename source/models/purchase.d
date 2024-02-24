@@ -18,7 +18,7 @@ struct Purchase {
     double taxes;
     double total;
     Date purchase_date;
-    @optional PurchaseItem[int] purchase_items;
+    @optional PurchaseItem[] purchase_items;
 }
 
 struct PurchaseItem {
@@ -30,7 +30,7 @@ struct PurchaseItem {
     double quantity;
     double price;
     double total;
-    @optional PurchaseItemProduct[int] purchase_item_products;
+    @optional PurchaseItemProduct[] purchase_item_products;
 }
 
 /** 
