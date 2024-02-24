@@ -9,6 +9,7 @@ import std.conv;
 import std.algorithm: map;
 
 import database;
+import models.product;
 import models.purchase;
 import models.shop;
 import models.supplier;
@@ -76,7 +77,7 @@ class PurchaseController {
         res.redirect("/purchases");
 	}
 	
-	// GET /purchases/:_id
+	// GET /users/:_id
     @method(HTTPMethod.GET)
 	@path("/purchases/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
@@ -86,69 +87,17 @@ class PurchaseController {
 		if (! purchaseNullable.isNull) {
 			// Acessar os campos da estrutura Customer
 			auto purchase = purchaseNullable.get;
+			auto item = PurchaseItem();
+			item.product = Product();
+			item.product.name = "Camiseta Básica";
+			item.price = 50;
+			item.quantity = 1;
+            item.total = 50;
+			purchase.purchase_items ~= item;
 			render!("purchases_show.dt", purchase);
 		} else {
 
 		}
     }
-    
-	// GET /purchases/:_id/edit
-	@method(HTTPMethod.GET)
-	@path("/purchases/:_id/edit")
-	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
-	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("purchases_index.dt", authenticated);
-		*/
-		struct Q { BsonObjectID _id; }
-        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
-		if (! docNullable.isNull) {
-			// Acessar os campos da estrutura Purchase
-			Purchase purchase = docNullable.get;
-			render!("purchases_edit.dt", purchase);
-		}
-	}
-
-    // POST /purchases/:_id
-	@method(HTTPMethod.POST)
-	@path("/purchases/:_id")
-	void change(HTTPServerRequest req, HTTPServerResponse res)
-	{
-		auto _id = BsonObjectID.fromString(req.params["_id"]);
-        // filter
-		BsonObjectID[string] filter;
-		filter["_id"] = _id;
-        // update
-		Bson[string][string] update;
-		update["$set"]["value"] = req.form["value"];
-		update["$set"]["taxes"] = req.form["taxes"];
-		update["$set"]["total"] = req.form["total"];
-        update["$set"]["supplier_id"] = req.form["supplier_id"];
-		update["$set"]["supplier"] = coll_supplier.findOne!Supplier(Q(BsonObjectID.fromString(req.form["supplier_id"]))).get;
-		coll.updateOne(filter, update);
-        res.redirect("/purchases");
-	}
-    
-    // POST /purchases/:_id/purchase-items
-	@method(HTTPMethod.POST)
-	@path("/purchases/:_id/purchase-items")
-	void add_item(HTTPServerRequest req, HTTPServerResponse res)
-	{
-		auto _id = BsonObjectID.fromString(req.params["_id"]);
-        // filter
-		BsonObjectID[string] filter;
-		filter["_id"] = _id;
-        // update
-		Bson[string][string] update;
-		update["$set"]["value"] = req.form["value"];
-		update["$set"]["taxes"] = req.form["taxes"];
-		update["$set"]["total"] = req.form["total"];
-        update["$set"]["supplier_id"] = req.form["supplier_id"];
-		update["$set"]["supplier"] = coll_supplier.findOne!Supplier(Q(BsonObjectID.fromString(req.form["supplier_id"]))).get;
-        // TODO: Add Item to List here
-		coll.updateOne(filter, update);
-        res.redirect("/purchases");
-	}
     
 }

@@ -47,23 +47,6 @@ class CustomerController {
 		render!("customers_new.dt", customer);
 	}
 	
-
-	// GET /customers/:_id
-    @method(HTTPMethod.GET)
-	@path("/customers/:_id")
-    void show(HTTPServerRequest req, HTTPServerResponse res)
-    {
-		struct Q { string _id; }
-        auto docNullable = coll.findOne!Customer(Q(req.params["_id"]));
-		if (! docNullable.isNull) {
-			// Acessar os campos da estrutura Customer
-			auto customer = docNullable.get;
-			render!("customers_show.dt", customer);
-		} else {
-
-		}
-    }
-    
 	// POST /customers
     @method(HTTPMethod.POST)
 	@path("/customers")
@@ -80,6 +63,23 @@ class CustomerController {
 		coll.insertOne(customer);
         res.redirect("/customers");
 	}
+    
+
+	// GET /customers/:_id
+    @method(HTTPMethod.GET)
+	@path("/customers/:_id")
+    void show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+		struct Q { string _id; }
+        auto docNullable = coll.findOne!Customer(Q(req.params["_id"]));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Customer
+			auto customer = docNullable.get;
+			render!("customers_show.dt", customer);
+		} else {
+
+		}
+    }
     
 	// GET /customers/:_id/edit
 	@method(HTTPMethod.GET)
