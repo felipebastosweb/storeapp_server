@@ -13,8 +13,10 @@ block contents
                     ///button.btn.btn-primary(onclick="javascript::window.close()")& Add Item
             section.container
                 header.row
-                    .col-12
+                    .col-6
                         h4 Items of Purchase
+                    .col-6
+                        a(href="/puchases/#{purchase._id.toString()}/purchase-items/new", class="btn btn-primary", target="_blank") Add Item
                 aside.row
                     .col-6 Item Name
                     .col-2 Price
