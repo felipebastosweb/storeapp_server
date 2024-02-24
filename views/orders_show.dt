@@ -12,7 +12,12 @@ block contents
                 ///.mb-3
                     ///button.btn.btn-primary(onclick="javascript::window.close()")& Confirm Item
             section.container
-                .row
+                header.row
+                    .col-6
+                        h4 Items of Order
+                    .col-6
+                        a(href="/orders/#{order._id.toString()}/order-items/new", class="btn btn-primary", target="_blank") Add Item
+                aside.row
                     .col-6 Item Name
                     .col-2 Price
                     .col-2 Quantity
