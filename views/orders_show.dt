@@ -17,7 +17,7 @@ block contents
                         h4 Items of Order
                     .col-6
                         a(href="/orders/#{order._id.toString()}/order-items/new", class="btn btn-primary", target="_blank") Add Item
-                aside.row
+                aside.row#order-items
                     .col-6 Item Name
                     .col-2 Price
                     .col-2 Quantity
@@ -28,5 +28,24 @@ block contents
                         .col-2 #{order_item.value}
                         .col-2 #{order_item.quantity}
                         .col-2 #{order_item.total}
+            section.container
+                header.row
+                    .col-6
+                        h4 List of Payments
+                    .col-6
+                        a(href="/payments/#{payment.id}/order-payments/new", class="btn btn-primary", target="_blank") Add Payment
+                aside.row#order-payments
+                    .col-4 Payment Type
+                    .col-2 Value
+                    .col-2 
+                    .col-2 
+                    .col-2 
+                - foreach(order_payment; order.order_payments)
+                    .row
+                        .col-4 #{order_payment.payment_type.name}
+                        .col-2 #{order_payment.value}
+                        .col-2 
+                        .col-2 
+                        .col-2 
             .mb-3
                 button.btn.btn-secondary(onclick="javascript::window.close()")& Back
