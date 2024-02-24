@@ -7,21 +7,21 @@ block contents
                 h2& Order
         section.row
             include orders__order
-            form(action="/orders/#{order._id.toString()}/order-items/", method="POST")
-                include order_items__form
-                .mb-3
-                    button.btn.btn-primary(onclick="javascript::window.close()")& Confirm Item
+            ///form(action="/orders/#{order._id.toString()}/order-items/", method="POST")
+                ///include orders_item__form
+                ///.mb-3
+                    ///button.btn.btn-primary(onclick="javascript::window.close()")& Confirm Item
             section.container
                 .row
                     .col-6 Item Name
                     .col-2 Price
                     .col-2 Quantity
                     .col-2 Total
-                - foreach(order_item; order_items)
+                - foreach(order_item; order.order_items)
                     .row
-                        .col-6 #{order_item.product}
+                        .col-6 #{order_item.product.name}
                         .col-2 #{order_item.value}
                         .col-2 #{order_item.quantity}
                         .col-2 #{order_item.total}
-			.mb-3
-				button.btn.btn-secondary(onclick="javascript::window.close()")& Back
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Back

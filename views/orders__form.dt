@@ -12,5 +12,11 @@
 	label.form-label& Request Date
 	input.form-control(type="date", name="request_date", value="#{order.request_date}")
 .mb-3
+	label.form-label& Value
+	input.form-control(type="number", name="value", value="#{order.value}")
+.mb-3
+	label.form-label& Taxes
+	input.form-control(type="number", name="taxes", value="#{order.taxes}")
+.mb-3
 	label.form-label& Total
 	input.form-control(type="number", name="total", value="#{order.total}")

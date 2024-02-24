@@ -7,7 +7,7 @@ block contents
                 h2& Purchase
         section.row
             include purchases__purchase
-            form(action="/puchases/#{purchase._id.toString()}/purchase-items/", method="POST")
+            ///form(action="/puchases/#{purchase._id.toString()}/purchase-items/", method="POST")
                 ///include purchases_item__form
                 ///.mb-3
                     ///button.btn.btn-primary(onclick="javascript::window.close()")& Add Item

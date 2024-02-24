@@ -1,0 +1,9 @@
+.mb-3
+	label.form-label& Value
+	input.form-control(type="number", name="value", value="#{order_item.value}")
+.mb-3
+	label.form-label& Taxes
+	input.form-control(type="number", name="taxes", value="#{order_item.taxes}")
+.mb-3
+	label.form-label& Total
+	input.form-control(type="number", name="total", value="#{order_item.total}")
