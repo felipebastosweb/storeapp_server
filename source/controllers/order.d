@@ -55,22 +55,51 @@ class OrderController {
 		render!("orders_new.dt", order, shops, customers);
 	}
 	
-	/*
+	// POST /orders
+    @method(HTTPMethod.POST)
+	@path("/orders")
+	void create(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		struct Q { BsonObjectID _id; }
+		Order order;
+		order._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		order.shop_id = req.form["shop_id"];
+		order.shop = coll_shop.findOne!Shop(Q(BsonObjectID.fromString(order.shop_id))).get;
+		order.customer_id = req.form["customer_id"];
+		order.customer = coll_customer.findOne!Customer(Q(BsonObjectID.fromString(order.customer_id))).get;
+		order.value = to!double(req.form["value"]);
+		order.taxes = to!double(req.form["taxes"]);
+		order.total = to!double(req.form["total"]);
+		order.request_date = DateTime.fromISOExtString(req.form["request_date"]);
+		coll.insertOne(order);
+        res.redirect("/orders");
+	}
+
+	
 	// GET /orders/:_id
     @method(HTTPMethod.GET)
 	@path("/orders/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
-		struct Q { string slug; }
-        auto orderNullable = coll.findOne!Order(Q(req.params["slug"]));
-		if (! orderNullable.isNull) {
-			// Acessar os campos da estrutura Order
-			auto order = orderNullable.get;
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Order(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Customer
+			auto order = docNullable.get;
+			/*
+			auto item = OrderItem();
+			item.product = Product();
+			item.product.name = "Camiseta Básica";
+			item.price = 50;
+			item.quantity = 1;
+            item.total = 50;
+			order.order_items ~= item;
+			*/
 			render!("orders_show.dt", order);
 		} else {
 
 		}
     }
-	*/
+	
 
 }

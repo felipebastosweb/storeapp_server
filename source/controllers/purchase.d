@@ -77,7 +77,7 @@ class PurchaseController {
         res.redirect("/purchases");
 	}
 	
-	// GET /users/:_id
+	// GET /purchases/:_id
     @method(HTTPMethod.GET)
 	@path("/purchases/:_id")
     void show(HTTPServerRequest req, HTTPServerResponse res)
