@@ -1,0 +1,10 @@
+article.container
+    header.row
+        .col-12
+            h2& Edit Payment
+    section.row
+        form(action="/payments/#{payment._id.toString()}", method="POST")
+            include payments__form
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
+                button.btn.btn-primary(type="submit")& Confirm

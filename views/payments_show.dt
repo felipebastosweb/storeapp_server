@@ -1,0 +1,8 @@
+article.container
+	header.row
+		.col-12
+			h2& Payment
+	section.row
+		include payments__payment
+		.mb-3
+			button.btn.btn-secondary(onclick="javascript::window.close()")& Back

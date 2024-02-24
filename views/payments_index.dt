@@ -1,0 +1,28 @@
+article.container
+    header.row
+        .col-6
+            h2& Payments
+        .col-6
+            a(href="/payments/new", class="btn btn-primary", target="_blank")
+                i.bi.bi-plus
+    section.row
+        - if (! payments.empty)
+            - foreach(payment; payments)
+                article#payment.col-3(style="padding:5px;")
+                    .card
+                        .card-body
+                            h5.card-title #{payment.value}
+                            h6.card-subtitle Deadline #{payment.deadline_date.toISOExtString()}
+                            p.card-text Pay Date: #{payment.pay_date.toISOExtString()}
+                            p.card-text Status: #{payment.status}
+                            a(href="/payments/#{payment._id.toString()}", class="btn btn-info", target="_blank")
+                                i.bi.bi-eye
+                            a(href="/payments/#{payment._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                i.bi.bi-pencil
+                            a(href="/payments/#{payment._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                i.bi.bi-trash
+        - else
+            article.col-12
+                h3 Payments not found
+                p Click into bottom to add new Payment
+                button(class="btn btn-primary", onclick="window.location='/payments/new'") Add Payment

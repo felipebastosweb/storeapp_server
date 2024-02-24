@@ -1,0 +1,5 @@
+p #{payment.payment_type.name}
+p #{payment.value}
+p #{payment.deadline_date.toISOExtString()}
+p #{payment.pay_date.toISOExtString()}
+p #{payment.status}
