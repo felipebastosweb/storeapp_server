@@ -11,6 +11,6 @@ html
 		- css("bootstrap-icons");
 		//- css("common");
 		- js("jquery");
-		- js("bootstrap");
+		- js("bootstrap.bundle");
 	body
 		block contents

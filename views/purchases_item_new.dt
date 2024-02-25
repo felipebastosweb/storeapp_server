@@ -1,13 +1,20 @@
-extends layout_default
-
-block contents
-    article.container
-        header.row
-            .col-12
-                h2& New Purchase Item
-        section.row
-            form(action="/purchases/#{purchase._id}/purchase-items", method="POST", enctype="multipart/form-data")
-                include purchases_item__form
-                .mb-3
-                    button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
-                    button.btn.btn-primary(type="submit")& Confirm
+article.container
+    section.row
+        form(action="/purchases/#{purchase._id}/purchase-items", method="POST", enctype="multipart/form-data")
+            .mb-3
+                label.form-label& Product
+                select.form-control(name="product_id")
+                    -foreach(product; products)
+                        option(value="#{product._id}") #{product.name}
+            .mb-3
+                label.form-label& Value
+                input.form-control(type="number", name="price", value="#{new_item.price}")
+            .mb-3
+                label.form-label& Taxes
+                input.form-control(type="number", name="quantity", value="#{new_item.quantity}")
+            .mb-3
+                label.form-label& Total
+                input.form-control(type="number", name="total", value="#{new_item.total}")
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
+                button.btn.btn-primary(type="submit")& Confirm

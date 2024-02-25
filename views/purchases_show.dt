@@ -16,7 +16,15 @@ block contents
                     .col-6
                         h4 Items of Purchase
                     .col-6
-                        a(href="/purchases/#{purchase._id}/purchase-items/new", class="btn btn-primary", target="_blank") Add Purchase Item
+                        #exampleModal.modal.fade(tabindex="-1")
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5#exampleModalLabel.modal-title New Purchase Item
+                                        button.btn.btn-close(type="button", data-bs-dismiss="modal")
+                                    .modal-body
+                                        include purchases_item_new
+                        button.btn.btn-primary( data-bs-toggle="modal", data-bs-target="#exampleModal") Add Purchase Item
                 aside.row
                     .col-6 Item Name
                     .col-2 Price
@@ -33,13 +41,12 @@ block contents
                     .col-2 &nbsp;
                     .col-2 &nbsp;
                     .col-2 Total #{purchase.total}
-            
             section.container
                 header.row
                     .col-6
                         h4 List of Payments
                     .col-6
-                        a(href="/purchases/#{purchase._id}/purchase-payments/new", class="btn btn-primary", target="_blank") Add Payment
+                        button.btn.btn-primary(data-bs-toggle="modal", data-bs-target="#exampleModal") Add Payment
                 aside.row#purchase-payments
                     .col-4 Payment Type
                     .col-2 Value
@@ -53,5 +60,3 @@ block contents
                         .col-2 
                         .col-2 
                         .col-2 
-            .mb-3
-                button.btn.btn-secondary(onclick="javascript::window.close()")& Back
