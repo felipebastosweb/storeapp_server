@@ -52,6 +52,10 @@ A Tela com a lista de usuários exibe os fornecedores cadastrados no sistema. A 
 
 ![Tela de Lista de Fornecedores](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/purchases_index.png)
 
+## Tela de Adição de Items a Compra
+Em complementação a tela que mostra a compra foi adicionado um formulário em modal para adicionar items à compra.
+![Tela de Lista de Fornecedores](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/purchases_items_new_modal.png)
+
 # O que será produzido em breve
 Estes são os próximos recursos a serem desenvolvidos no sistema:
   - Autenticação de Usuário e Permissão
