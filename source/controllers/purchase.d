@@ -97,7 +97,9 @@ class PurchaseController {
             item.total = 50;
 			purchase.purchase_items ~= item;
 			purchase.purchase_items ~= item;
-			render!("purchases_show.dt", purchase);
+			auto new_item = PurchaseItem();
+			auto products = coll_product.find().map!(bson => deserializeBson!Product(bson));
+			render!("purchases_show.dt", purchase, products, new_item);
 		} else {
 
 		}
@@ -147,16 +149,12 @@ class PurchaseController {
         res.redirect("/purchases");
 	}
 	
-	
+	/*
 	// GET /purchases/:_id/purchase-items/new
 	@method(HTTPMethod.GET)
 	@path("/purchases/:_id/purchase-items/new")
 	void item_new_form(HTTPServerRequest req, HTTPServerResponse res)
 	{
-		/*
-		bool authenticated = ms_authenticated;
-		render!("shop_index.dt", authenticated);
-		*/
 		struct Q { BsonObjectID _id; }
         auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
 		if (! docNullable.isNull) {
@@ -167,6 +165,7 @@ class PurchaseController {
 			render!("purchases_item_new.dt", purchase, purchase_item, products);
 		}
 	}
+	*/
 
     // POST /purchases/:_id/purchase-items
 	@method(HTTPMethod.POST)

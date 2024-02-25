@@ -47,23 +47,6 @@ class BrandController {
 		render!("brands_new.dt", brand);
 	}
 	
-
-	// GET /brands/:_id
-    @method(HTTPMethod.GET)
-	@path("/brands/:_id")
-    void show(HTTPServerRequest req, HTTPServerResponse res)
-    {
-		struct Q { BsonObjectID _id; }
-        auto brandNullable = coll.findOne!Brand(Q(BsonObjectID.fromString(req.params["_id"])));
-		if (! brandNullable.isNull) {
-			// Acessar os campos da estrutura Customer
-			auto brand = brandNullable.get;
-			render!("brands_show.dt", brand);
-		} else {
-
-		}
-    }
-
 	// POST /brands
     @method(HTTPMethod.POST)
 	@path("/brands")
@@ -81,6 +64,23 @@ class BrandController {
 		coll.insertOne(brand);
         res.redirect("/brands");
 	}
+
+	// GET /brands/:_id
+    @method(HTTPMethod.GET)
+	@path("/brands/:_id")
+    void show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+		struct Q { BsonObjectID _id; }
+        auto brandNullable = coll.findOne!Brand(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! brandNullable.isNull) {
+			// Acessar os campos da estrutura Customer
+			auto brand = brandNullable.get;
+			render!("brands_show.dt", brand);
+		} else {
+
+		}
+    }
+
     
 	// GET /brands/:_id/edit
 	@method(HTTPMethod.GET)
