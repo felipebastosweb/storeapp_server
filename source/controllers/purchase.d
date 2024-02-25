@@ -21,12 +21,14 @@ class PurchaseController {
 	MongoCollection coll;
 	MongoCollection coll_shop;
 	MongoCollection coll_supplier;
+	MongoCollection coll_product;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
 		coll = client.getCollection("storeapp.purchases");
 		coll_shop = client.getCollection("storeapp.shops");
 		coll_supplier = client.getCollection("storeapp.suppliers");
+		coll_product = client.getCollection("storeapp.products");
 	}
     
 	// GET /
@@ -83,10 +85,10 @@ class PurchaseController {
     void show(HTTPServerRequest req, HTTPServerResponse res)
     {
 		struct Q { BsonObjectID _id; }
-        auto purchaseNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
-		if (! purchaseNullable.isNull) {
+        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
 			// Acessar os campos da estrutura Customer
-			auto purchase = purchaseNullable.get;
+			auto purchase = docNullable.get;
 			auto item = PurchaseItem();
 			item.product = Product();
 			item.product.name = "Camiseta Básica";
@@ -94,10 +96,114 @@ class PurchaseController {
 			item.quantity = 1;
             item.total = 50;
 			purchase.purchase_items ~= item;
+			purchase.purchase_items ~= item;
 			render!("purchases_show.dt", purchase);
 		} else {
 
 		}
     }
+
+	
+	// GET /purchases/:_id/edit
+	@method(HTTPMethod.GET)
+	@path("/purchases/:_id/edit")
+	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("shop_index.dt", authenticated);
+		*/
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Purchase
+			Purchase purchase = docNullable.get;
+			auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+			auto suppliers = coll_supplier.find().map!(bson => deserializeBson!Supplier(bson));
+			render!("purchases_edit.dt", purchase, shops, suppliers);
+		}
+	}
+
+    // POST /purchases/:_id
+	@method(HTTPMethod.POST)
+	@path("/purchases/:_id")
+	void change(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+        // filter
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        // update
+		Bson[string][string] update;
+		// TODO: change shop
+		// TODO: change supplier
+		//update["$set"]["name"] = req.form["name"];
+		update["$set"]["value"] = req.form["value"];
+		update["$set"]["taxes"] = req.form["taxes"];
+		update["$set"]["total"] = req.form["total"];
+		update["$set"]["purchase_date"] = req.form["purchase_date"];
+		update["$set"]["entry_date"] = req.form["entry_date"];
+		coll.updateOne(filter, update);
+        res.redirect("/purchases");
+	}
+	
+	
+	// GET /purchases/:_id/purchase-items/new
+	@method(HTTPMethod.GET)
+	@path("/purchases/:_id/purchase-items/new")
+	void item_new_form(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("shop_index.dt", authenticated);
+		*/
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Purchase
+			auto purchase_item = PurchaseItem();
+			Purchase purchase = docNullable.get;
+			auto products = coll_product.find().map!(bson => deserializeBson!Product(bson));
+			render!("purchases_item_new.dt", purchase, purchase_item, products);
+		}
+	}
+
+    // POST /purchases/:_id/purchase-items
+	@method(HTTPMethod.POST)
+	@path("/purchases/:_id/purchase-items")
+	void change_items(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+        // filter
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+		// TODO: find purchase
+		// TODO: set items
+		auto items = [];
+        // TODO: update items
+		Bson[string][string] update;
+		//update["$set"]["purchase_items"] = items;
+		coll.updateOne(filter, update);
+        res.redirect("/purchases");
+	}
+
+    // POST /purchases/:_id/purchase-payments
+	@method(HTTPMethod.POST)
+	@path("/purchases/:_id/purchase-payments")
+	void change_payments(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+        // filter
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+		// TODO: find purchase
+		// TODO: set payments
+        // update payments
+		Bson[string][string] update;
+		update["$set"]["purchase_payments"] = req.form["purchase_payments"];
+		coll.updateOne(filter, update);
+        res.redirect("/purchases");
+	}
+    
     
 }
