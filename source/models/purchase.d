@@ -4,9 +4,14 @@ import vibe.d;
 import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
+// https://www.shipbob.com/blog/ship-date/
+
+import enums.payment_status;
+
 import models.shop:Shop;
 import models.supplier:Supplier;
 import models.product:OptionValue, Product;
+import models.payment;
 
 struct Purchase {
     BsonObjectID _id;
@@ -17,8 +22,21 @@ struct Purchase {
     double value;
     double taxes;
     double total;
-    Date purchase_date;
+    Date purchase_date; // data da compra
+    Date entry_date; // data de recebimento do produto (entrada no estoque)
     @optional PurchaseItem[] purchase_items;
+    @optional PurchasePayment[] purchase_payments;
+}
+
+
+struct PurchasePayment {
+    BsonObjectID _id;
+    string payment_type_id;
+    PaymentType payment_type;
+    double value;
+    DateTime deadline_date;  //Pagamento deve ser realizado até essa data e hora (prazo)
+    DateTime pay_date;  //Data de efetivação do pagamento
+    PaymentStatus status = PaymentStatus.Pending; // 0 - pending
 }
 
 struct PurchaseItem {

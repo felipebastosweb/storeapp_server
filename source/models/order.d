@@ -11,7 +11,7 @@ import enums.payment_status;
 import models.shop:Shop;
 import models.customer:Customer;
 import models.product;
-import models.payment:PaymentType;
+import models.payment;
 
 struct Order {
     BsonObjectID _id;
