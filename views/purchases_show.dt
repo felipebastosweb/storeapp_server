@@ -16,7 +16,7 @@ block contents
                     .col-6
                         h4 Items of Purchase
                     .col-6
-                        a(href="/puchases/#{purchase._id.toString()}/purchase-items/new", class="btn btn-primary", target="_blank") Add Item
+                        a(href="/purchases/#{purchase._id}/purchase-items/new", class="btn btn-primary", target="_blank") Add Purchase Item
                 aside.row
                     .col-6 Item Name
                     .col-2 Price
@@ -33,5 +33,25 @@ block contents
                     .col-2 &nbsp;
                     .col-2 &nbsp;
                     .col-2 Total #{purchase.total}
+            
+            section.container
+                header.row
+                    .col-6
+                        h4 List of Payments
+                    .col-6
+                        a(href="/purchases/#{purchase._id}/purchase-payments/new", class="btn btn-primary", target="_blank") Add Payment
+                aside.row#purchase-payments
+                    .col-4 Payment Type
+                    .col-2 Value
+                    .col-2 
+                    .col-2 
+                    .col-2 
+                - foreach(purchase_payment; purchase.purchase_payments)
+                    .row
+                        .col-4 #{purchase_payment.payment_type.name}
+                        .col-2 #{purchase_payment.value}
+                        .col-2 
+                        .col-2 
+                        .col-2 
             .mb-3
                 button.btn.btn-secondary(onclick="javascript::window.close()")& Back

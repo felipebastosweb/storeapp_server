@@ -1,9 +1,14 @@
 .mb-3
-	label.form-label& Value
-	input.form-control(type="number", name="price", value="#{purchase_item.price}")
+    label.form-label& Product
+    select.form-control(name="product_id")
+        -foreach(product; products)
+            option(value="#{product._id}") #{product.name}
 .mb-3
-	label.form-label& Taxes
-	input.form-control(type="number", name="quantity", value="#{purchase_item.quantity}")
+    label.form-label& Value
+    input.form-control(type="number", name="price", value="#{purchase_item.price}")
 .mb-3
-	label.form-label& Total
-	input.form-control(type="number", name="total", value="#{purchase_item.total}")
+    label.form-label& Taxes
+    input.form-control(type="number", name="quantity", value="#{purchase_item.quantity}")
+.mb-3
+    label.form-label& Total
+    input.form-control(type="number", name="total", value="#{purchase_item.total}")

@@ -11,13 +11,13 @@ block contents
                 ///include orders_item__form
                 ///.mb-3
                     ///button.btn.btn-primary(onclick="javascript::window.close()")& Confirm Item
-            section.container
-                header.row
+            section.container#order-items
+                header.row#header-order-items
                     .col-6
                         h4 Items of Order
                     .col-6
-                        a(href="/orders/#{order._id.toString()}/order-items/new", class="btn btn-primary", target="_blank") Add Item
-                aside.row#order-items
+                        a(href="/orders/#{order._id.toString()}/order-items/new", class="btn btn-primary", target="_blank") Add Order Item
+                article.row#order-items
                     .col-6 Item Name
                     .col-2 Price
                     .col-2 Quantity
@@ -28,12 +28,17 @@ block contents
                         .col-2 #{order_item.value}
                         .col-2 #{order_item.quantity}
                         .col-2 #{order_item.total}
+                footer.row#footer-order-items
+                    .col-6 &nbsp;
+                    .col-2 Value #{order.value}
+                    .col-2 Taxes #{order.taxes}
+                    .col-2 Total #{order.total}
             section.container
                 header.row
                     .col-6
                         h4 List of Payments
                     .col-6
-                        a(href="/payments/#{payment.id}/order-payments/new", class="btn btn-primary", target="_blank") Add Payment
+                        a(href="/orders/#{order._id}/order-payments/new", class="btn btn-primary", target="_blank") Add Payment to Order
                 aside.row#order-payments
                     .col-4 Payment Type
                     .col-2 Value

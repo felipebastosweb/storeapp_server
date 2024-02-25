@@ -1,22 +1,25 @@
 .mb-3
-	label.form-label& Shop
-	select.form-control(name="shop_id")
-		-foreach(shop; shops)
-			option(value="#{shop._id}") #{shop.name}
+    label.form-label& Shop
+    select.form-control(name="shop_id")
+        -foreach(shop; shops)
+            option(value="#{shop._id}") #{shop.name}
 .mb-3
-	label.form-label& Supplier
-	select.form-control(name="supplier_id")
-		-foreach(supplier; suppliers)
-			option(value="#{supplier._id}") #{supplier.name}
+    label.form-label& Supplier
+    select.form-control(name="supplier_id")
+        -foreach(supplier; suppliers)
+            option(value="#{supplier._id}") #{supplier.name}
 .mb-3
-	label.form-label& Value
-	input.form-control(type="number", name="value", value="#{purchase.value}")
+    label.form-label& Value
+    input.form-control(type="number", name="value", value="#{purchase.value}")
 .mb-3
-	label.form-label& Taxes
-	input.form-control(type="number", name="taxes", value="#{purchase.taxes}")
+    label.form-label& Taxes
+    input.form-control(type="number", name="taxes", value="#{purchase.taxes}")
 .mb-3
-	label.form-label& Total
-	input.form-control(type="number", name="total", value="#{purchase.total}")
+    label.form-label& Total
+    input.form-control(type="number", name="total", value="#{purchase.total}")
 .mb-3
-	label.form-label& Purchase Date
-	input.form-control(type="date", name="purchase_date", value="#{purchase.purchase_date}")
+    label.form-label& Purchase Date
+    input.form-control(type="date", name="purchase_date", value="#{purchase.purchase_date}")
+.mb-3
+    label.form-label& Entry Date
+    input.form-control(type="date", name="entry_date", value="#{purchase.entry_date}")
