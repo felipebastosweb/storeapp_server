@@ -13,6 +13,7 @@ import models.product;
 import models.purchase;
 import models.shop;
 import models.supplier;
+import models.payment;
 
 import translation;
 
@@ -22,6 +23,7 @@ class PurchaseController {
 	MongoCollection coll_shop;
 	MongoCollection coll_supplier;
 	MongoCollection coll_product;
+	MongoCollection coll_payment_type;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
@@ -29,6 +31,7 @@ class PurchaseController {
 		coll_shop = client.getCollection("storeapp.shops");
 		coll_supplier = client.getCollection("storeapp.suppliers");
 		coll_product = client.getCollection("storeapp.products");
+		coll_payment_type = client.getCollection("storeapp.payment_types");
 	}
     
 	// GET /
@@ -98,8 +101,10 @@ class PurchaseController {
 			purchase.purchase_items ~= item;
 			purchase.purchase_items ~= item;
 			auto new_item = PurchaseItem();
+			auto new_payment = PurchasePayment();
 			auto products = coll_product.find().map!(bson => deserializeBson!Product(bson));
-			render!("purchases_show.dt", purchase, products, new_item);
+			auto payment_types = coll_payment_type.find().map!(bson => deserializeBson!PaymentType(bson));
+			render!("purchases_show.dt", purchase, new_item, new_payment, products, payment_types);
 		} else {
 
 		}
