@@ -4,7 +4,7 @@ import vibe.d;
 import vibe.data.serialization;
 import vibe.db.mongo.mongo;
 
-struct PaymentType {
+struct PaymentType{
     BsonObjectID _id;
     string name;
 }

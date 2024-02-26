@@ -34,6 +34,8 @@ struct PurchasePayment {
     string payment_type_id;
     PaymentType payment_type;
     double value;
+    double taxes;
+    double total;
     DateTime deadline_date;  //Pagamento deve ser realizado até essa data e hora (prazo)
     DateTime pay_date;  //Data de efetivação do pagamento
     PaymentStatus status = PaymentStatus.Pending; // 0 - pending
