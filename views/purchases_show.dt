@@ -16,15 +16,15 @@ block contents
                     .col-6
                         h4 Items of Purchase
                     .col-6
-                        #exampleModal.modal.fade(tabindex="-1")
+                        #purchaseItemModal.modal.fade(tabindex="-1")
                             .modal-dialog
                                 .modal-content
                                     .modal-header
-                                        h5#exampleModalLabel.modal-title New Purchase Item
+                                        h5#purchaseItemModalLabel.modal-title New Purchase Item
                                         button.btn.btn-close(type="button", data-bs-dismiss="modal")
                                     .modal-body
                                         include purchases_item_new
-                        button.btn.btn-primary( data-bs-toggle="modal", data-bs-target="#exampleModal") Add Purchase Item
+                        button.btn.btn-primary( data-bs-toggle="modal", data-bs-target="#purchaseItemModal") Add Purchase Item
                 aside.row
                     .col-6 Item Name
                     .col-2 Price
@@ -46,7 +46,15 @@ block contents
                     .col-6
                         h4 List of Payments
                     .col-6
-                        button.btn.btn-primary(data-bs-toggle="modal", data-bs-target="#exampleModal") Add Payment
+                        #paymentModal.modal.fade(tabindex="-1")
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5#paymentModalLabel.modal-title New Purchase Payment
+                                        button.btn.btn-close(type="button", data-bs-dismiss="modal")
+                                    .modal-body
+                                        include purchases_payment_new
+                        button.btn.btn-primary(data-bs-toggle="modal", data-bs-target="#paymentModal") Add Payment
                 aside.row#purchase-payments
                     .col-4 Payment Type
                     .col-2 Value

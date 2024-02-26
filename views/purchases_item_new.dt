@@ -16,5 +16,5 @@ article.container
                 label.form-label& Total
                 input.form-control(type="number", name="total", value="#{new_item.total}")
             .mb-3
-                button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
+                a.btn.btn-secondary(href="/purchases/#{purchase._id}")& Cancel
                 button.btn.btn-primary(type="submit")& Confirm
