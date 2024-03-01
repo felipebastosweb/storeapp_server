@@ -20,11 +20,11 @@ block contents
                                 p.card-text Phone 1: #{customer.phone1}
                                 p.card-text Phone 2: #{customer.phone2}
                                 p.card-text
-                                    a(href="/customers/#{customer._id.toString()}", class="btn btn-info", target="_blank")
+                                    a(href="/customers/#{customer._id}", class="btn btn-info", target="_blank")
                                         i.bi.bi-eye
-                                    a(href="/customers/#{customer._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                    a(href="/customers/#{customer._id}/edit", class="btn btn-warning", target="_blank")
                                         i.bi.bi-pencil
-                                    a(href="/customers/#{customer._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                    a(href="/customers/#{customer._id}/delete", class="btn btn-danger", target="_blank")
                                         i.bi.bi-trash
             - else
                 article.col-12

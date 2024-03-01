@@ -16,17 +16,17 @@ block contents
                             .card-body
                                 h3.card-title #{product.name}
                                 h6.card-subtitle
-                                    a(href="/brands/#{product.brand._id.toString()}", target="_blank") #{product.brand.name}
+                                    a(href="/brands/#{product.brand._id}", target="_blank") #{product.brand.name}
                                 p.card-text Description: #{product.description}
                                 p.card-text Model: #{product.model}
                                 p.card-text Ean: #{product.ean}
                                 p.card-text Dimensions: (#{product.width}, #{product.height}, #{product.length}) #{product.measure_unit}
                                 p.card-text Weight: #{product.weight}g
-                                a(href="/products/#{product._id.toString()}", class="btn btn-info", target="_blank")
+                                a(href="/products/#{product._id}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
-                                a(href="/products/#{product._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                a(href="/products/#{product._id}/edit", class="btn btn-warning", target="_blank")
                                     i.bi.bi-pencil
-                                a(href="/products/#{product._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                a(href="/products/#{product._id}/delete", class="btn btn-danger", target="_blank")
                                     i.bi.bi-trash
             - else
                 article.col-12
