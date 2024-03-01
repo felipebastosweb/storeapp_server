@@ -5,9 +5,9 @@ Esse trabalho visa construir um aplicativo do tipo binário para gestão de loja
 
 # Como instalar
 Para instalar à partir do código-fonte basta baixar esse projeto (git clone), ou fazer o download e extrair do arquivo zip, e ao abrir o console ou shell na pasta do projeto executar o comando dub --build, caso deseje apenas que compile ou o comando dub para compilar e executar. Caso você deseje apenas fazer o download do arquivo binário (storeapp.exe) basta baixar o arquivo na seção de releases localizada à direita dessa página --->>.
-
+## Atualização
 Para fazer a atualização do projeto basta baixar o arquivo binário storeapp.exe na seção de releases ou baixar o código-fonte do projeto e fazer conforme já indicado para recompilar.
-
+## Estrutura do código-fonte
 storeapp
 storeapp/dub.json
 storeapp/public
@@ -45,22 +45,31 @@ A Tela com a lista de usuários exibe os fornecedores cadastrados no sistema. A 
 ![Tela de Lista de Fornecedores](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/suppliers_index.png)
 
 ## Tela de Lista de Produtos
-
+![Tela de Lista de Produtos](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/products_index.png)
 ## Tela de Lista de Compras
+![Tela de Lista de Compras](https://github.com/felipebastosweb/storeapp_dlang/blob/main/screenshots/purchases_index.png)
 
 # O que será produzido em breve
 Estes são os próximos recursos a serem desenvolvidos no sistema:
   - Autenticação de Usuário e Permissão
-  - Adição de Itens à Compra efetuada
-  - Cadastro de Pagamento da Compra (forma de pagamento, data de pagamento, datas de parcelas do cartão)
+  - Adição de Itens à Compra efetuada (W.I.P)
+  - Adição de Pagamento a Compra (W.I.P)
+    -- forma de pagamento, data de pagamento
+    -- datas de parcelas do cartão
   - Cancelamento de Compra
-  - Cadastro de Clientes
+  - Cadastro de Clientes (W.I.P)
   - Gráfico de Crescimento de Cadastro de Clientes na Tela Home
-  - Cadastro de Pedidos
+  - Cadastro de Pedidos (W.I.P)
   - Gráfico de Crescimento de Pedidos na Tela Home
-  - Adição de Itens ao Pedido efetuado pelo Cliente
+  - Adição de Itens ao Pedido (W.I.P)
   - Cancelamento de Pedido
-  - Cadastro de Pagamento efetuados ao Pedido
+  - Adição de Pagamento ao Pedido (W.I.P)
+  - Reembolso de Pedido Cancelado
+  - Devolução de Produtos com Defeito
+  - Troca de Produtos do Pedido
   - Cadastro de Contas à Pagar
   - Cadastro de Contas à Receber
+  - Apagar recursos do banco de dados (W.I.P)
+  -- Usuários, Lojas, Marcas, Fornecedores, Compras, Produtos
+  -- Vendas, Clientes, Funcionários
 
