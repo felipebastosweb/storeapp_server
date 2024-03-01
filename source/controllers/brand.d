@@ -122,4 +122,55 @@ class BrandController {
         res.redirect("/brands");
 	}
     
+    // GET /brands/:_id/delete
+    @method(HTTPMethod.GET)
+    @path("/brands/:_id/delete")
+    void delete_show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("brand/index.dt", authenticated);
+        */
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Brand(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            // Acessar os campos da estrutura Brand
+            Brand brand = docNullable.get;
+            render!("brands_delete.dt", brand);
+        }
+    }
+
+    // DELETE /brands/:_id
+    @method(HTTPMethod.DELETE)
+    @path("/brands/:_id")
+    void remove(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("brand/index.dt", authenticated);
+        */
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Brand(Q(_id));
+        //auto docNullable = coll.findOne!Brand(filter);
+		// try to delete just 1 time
+        if (! docNullable.isNull) {
+			auto deleteNullable = coll.deleteOne(filter);
+			if (deleteNullable.deletedCount == 1) {
+				// Definir status de resposta para "No Content"
+				res.statusCode = 204;
+				res.writeBody("Erro ao excluir o usuário.");
+			} else {
+				// Não foi possível excluir o usuário
+				res.statusCode = 500;
+				res.writeBody("Erro ao excluir o usuário.");
+			}
+		}
+		else {
+            res.statusCode = 404;
+			res.writeBody("Usuário não encontrado.");
+        }
+	}
 }

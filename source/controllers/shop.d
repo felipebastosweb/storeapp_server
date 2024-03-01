@@ -75,7 +75,7 @@ class ShopController {
 	void create(HTTPServerRequest req, HTTPServerResponse res)
 	{
 		Shop shop;
-		shop._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		shop._id = BsonObjectID.generate; // Gera um ID aleatório para a loja
 		shop.name = req.form["name"];
 		shop.fantasy_name = req.form["fantasy_name"];
 		shop.federal_registration_number = req.form["federal_registration_number"];
@@ -136,6 +136,24 @@ class ShopController {
         res.redirect("/shops");
 	}
     
+    // GET /shops/:_id/delete
+    @method(HTTPMethod.GET)
+    @path("/shops/:_id/delete")
+    void delete_show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("shops/index.dt", authenticated);
+        */
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Shop(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            // Acessar os campos da estrutura shop
+            Shop shop = docNullable.get;
+            render!("shops_delete.dt", shop);
+        }
+    }
+
     // DELETE /shops/:_id
     @method(HTTPMethod.DELETE)
     @path("/shops/:_id")
@@ -143,29 +161,29 @@ class ShopController {
     {
         /*
         bool authenticated = ms_authenticated;
-        render!("user/index.dt", authenticated);
+        render!("shops/index.dt", authenticated);
         */
 		auto _id = BsonObjectID.fromString(req.params["_id"]);
 		BsonObjectID[string] filter;
 		filter["_id"] = _id;
         struct Q { BsonObjectID _id; }
         auto docNullable = coll.findOne!Shop(Q(_id));
+		// try to delete just 1 time
         if (! docNullable.isNull) {
 			auto deleteNullable = coll.deleteOne(filter);
 			if (deleteNullable.deletedCount == 1) {
 				// Definir status de resposta para "No Content"
 				res.statusCode = 204;
-				res.writeBody("Shop deleted with success!");
+				res.writeBody("Erro ao excluir a loja.");
 			} else {
-				// Não foi possível excluir o usuário
+				// Não foi possível excluir a loja
 				res.statusCode = 500;
-				res.writeBody("Delete shop failed.");
+				res.writeBody("Erro ao excluir a loja.");
 			}
 		}
 		else {
             res.statusCode = 404;
-			res.writeBody("Shop not found!");
+			res.writeBody("Loja não encontrada.");
         }
-        
 	}
 }

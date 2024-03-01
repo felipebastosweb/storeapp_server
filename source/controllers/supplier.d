@@ -69,7 +69,7 @@ class SupplierController {
 	void create(HTTPServerRequest req, HTTPServerResponse res)
 	{
 		Supplier supplier;
-		supplier._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		supplier._id = BsonObjectID.generate; // Gera um ID aleatório para o fornecedor
 		supplier.name = req.form["name"];
 		supplier.description = req.form["description"];
 		supplier.address = req.form["address"];
@@ -119,5 +119,56 @@ class SupplierController {
 		update["$set"]["phone2"] = req.form["phone2"];
 		coll.updateOne(filter, update);
         res.redirect("/suppliers");
+	}
+	
+    // GET /suppliers/:_id/delete
+    @method(HTTPMethod.GET)
+    @path("/suppliers/:_id/delete")
+    void delete_show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("supplier/index.dt", authenticated);
+        */
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Supplier(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            // Acessar os campos da estrutura Supplier
+            Supplier supplier = docNullable.get;
+            render!("suppliers_delete.dt", supplier);
+        }
+    }
+
+    // DELETE /suppliers/:_id
+    @method(HTTPMethod.DELETE)
+    @path("/suppliers/:_id")
+    void remove(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("supplier/index.dt", authenticated);
+        */
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Supplier(Q(_id));
+		// try to delete just 1 time
+        if (! docNullable.isNull) {
+			auto deleteNullable = coll.deleteOne(filter);
+			if (deleteNullable.deletedCount == 1) {
+				// Definir status de resposta para "No Content"
+				res.statusCode = 204;
+				res.writeBody("Erro ao excluir o fornecedor.");
+			} else {
+				// Não foi possível excluir o fornecedor
+				res.statusCode = 500;
+				res.writeBody("Erro ao excluir o fornecedor.");
+			}
+		}
+		else {
+            res.statusCode = 404;
+			res.writeBody("Usuário não encontrado.");
+        }
 	}
 }

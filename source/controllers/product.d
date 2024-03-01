@@ -91,4 +91,54 @@ class ProductController {
 
 		}
     }
+	
+    // GET /products/:_id/delete
+    @method(HTTPMethod.GET)
+    @path("/products/:_id/delete")
+    void delete_show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("product/index.dt", authenticated);
+        */
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Product(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            // Acessar os campos da estrutura Product
+            Product product = docNullable.get;
+            render!("products_delete.dt", product);
+        }
+    }
+
+    // DELETE /products/:_id
+    @method(HTTPMethod.DELETE)
+    @path("/products/:_id")
+    void remove(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("product/index.dt", authenticated);
+        */
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Product(Q(_id));
+        if (! docNullable.isNull) {
+			auto deleteNullable = coll.deleteOne(filter);
+			if (deleteNullable.deletedCount == 1) {
+				// Definir status de resposta para "No Content"
+				res.statusCode = 204;
+				res.writeBody("Erro ao excluir o usuário.");
+			} else {
+				// Não foi possível excluir o usuário
+				res.statusCode = 500;
+				res.writeBody("Erro ao excluir o usuário.");
+			}
+		}
+		else {
+            res.statusCode = 404;
+			res.writeBody("Usuário não encontrado.");
+        }
+	}
 }

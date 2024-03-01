@@ -69,7 +69,7 @@ class PurchaseController {
 	{
 		struct Q { BsonObjectID _id; }
 		Purchase purchase;
-		purchase._id = BsonObjectID.generate; // Gera um ID aleatório para o usuário
+		purchase._id = BsonObjectID.generate; // Gera um ID aleatório para a compra
 		purchase.shop_id = req.form["shop_id"];
 		purchase.shop = coll_shop.findOne!Shop(Q(BsonObjectID.fromString(purchase.shop_id))).get;
 		purchase.supplier_id = req.form["supplier_id"];
@@ -209,5 +209,54 @@ class PurchaseController {
         res.redirect("/purchases");
 	}
     
+    // GET /purchases/:_id/delete
+    @method(HTTPMethod.GET)
+    @path("/purchases/:_id/delete")
+    void delete_show(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("purchases/index.dt", authenticated);
+        */
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Supplier(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            // Acessar os campos da estrutura Supplier
+            Supplier purchase = docNullable.get;
+            render!("purchases_delete.dt", purchase);
+        }
+    }
+
+    // DELETE /purchases/:_id
+    @method(HTTPMethod.DELETE)
+    @path("/purchases/:_id")
+    void remove(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        /*
+        bool authenticated = ms_authenticated;
+        render!("purchases/index.dt", authenticated);
+        */
+		auto _id = BsonObjectID.fromString(req.params["_id"]);
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Purchase(Q(_id));
+        if (! docNullable.isNull) {
+			auto deleteNullable = coll.deleteOne(filter);
+			if (deleteNullable.deletedCount == 1) {
+				// Definir status de resposta para "No Content"
+				res.statusCode = 204;
+				res.writeBody("Erro ao excluir a compra.");
+			} else {
+				// Não foi possível excluir a compra
+				res.statusCode = 500;
+				res.writeBody("Erro ao excluir a compra.");
+			}
+		}
+		else {
+            res.statusCode = 404;
+			res.writeBody("Usuário não encontrado.");
+        }
+	}
     
 }
