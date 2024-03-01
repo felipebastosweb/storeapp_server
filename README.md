@@ -54,8 +54,8 @@ Estes são os próximos recursos a serem desenvolvidos no sistema:
   - Autenticação de Usuário e Permissão
   - Adição de Itens à Compra efetuada (W.I.P)
   - Adição de Pagamento a Compra (W.I.P)
-    -- forma de pagamento, data de pagamento
-    -- datas de parcelas do cartão
+    - forma de pagamento, data de pagamento
+    - datas de parcelas do cartão
   - Cancelamento de Compra
   - Cadastro de Clientes (W.I.P)
   - Gráfico de Crescimento de Cadastro de Clientes na Tela Home
@@ -70,6 +70,6 @@ Estes são os próximos recursos a serem desenvolvidos no sistema:
   - Cadastro de Contas à Pagar
   - Cadastro de Contas à Receber
   - Apagar recursos do banco de dados (W.I.P)
-  -- Usuários, Lojas, Marcas, Fornecedores, Compras, Produtos
-  -- Vendas, Clientes, Funcionários
+    - Usuários, Lojas, Marcas, Fornecedores, Compras, Produtos
+    - Vendas, Clientes, Funcionários
 
