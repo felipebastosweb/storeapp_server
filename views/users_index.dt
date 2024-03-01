@@ -6,23 +6,23 @@ block contents
             .col-6
                 h2& Users
             .col-6
-                a(href="/users/new", class="btn btn-plus", target="_blank")
+                a.btn.btn-primary(href="/users/new", class="btn btn-plus", target="_blank")
                     i.bi.bi-plus
-        section.row
+        section#users.row
             - if (! users.empty)
                 - foreach(user; users)
-                    article#user.col-3(style="padding:5px;")
+                    article#user(style="padding:5px;", class="#{user._id} col-3")
                         .card
                             .card-body
                                 h3.card-title #{user.username}
                                 p.card-text Phone: #{user.phone}
                                 p.card-text Email: #{user.email}
                                 p.card-text
-                                    a(href="/users/#{user._id.toString()}", class="btn btn-info", target="_blank")
+                                    a(href="/users/#{user._id}", class="btn btn-info", target="_blank")
                                         i.bi.bi-eye
-                                    a(href="/users/#{user._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                    a(href="/users/#{user._id}/edit", class="btn btn-warning", target="_blank")
                                         i.bi.bi-pencil
-                                    a(href="/users/#{user._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                    a(href="/users/#{user._id}/delete", class="btn btn-danger", target="_blank")
                                         i.bi.bi-trash
             - else
                 article.col-12

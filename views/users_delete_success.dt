@@ -1,0 +1,11 @@
+extends layout_default
+
+block contents
+	article.container
+		header.row
+			.col-12
+				h2& User Delete
+		section.row
+			p The user was deleted.
+			.mb-3
+				a.btn.btn-secondary(href="/users")& Back

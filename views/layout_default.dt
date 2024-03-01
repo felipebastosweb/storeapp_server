@@ -10,7 +10,7 @@ html
 		- css("bootstrap");
 		- css("bootstrap-icons");
 		//- css("common");
-		- js("jquery");
+		//- js("jquery");
 		- js("bootstrap.bundle");
 	body
 		block contents

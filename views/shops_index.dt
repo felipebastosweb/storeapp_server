@@ -16,17 +16,17 @@ block contents
                             .card-body
                                 h5.card-title #{shop.name}
                                 h6.card-subtitle #{shop.fantasy_name}
+                                p.card-text Address: #{shop.address}
+                                p.card-text Site: #{shop.site}
+                                p.card-text Email: #{shop.email}
                                 p.card-text
-                                    | Address: #{shop.address}
-                                    | Site: #{shop.site}
-                                    | Email: #{shop.email}
                                     | Phone 1: #{shop.phone1}
                                     | Phone 1: #{shop.phone2}
-                                a(href="/shops/#{shop._id.toString()}", class="btn btn-info", target="_blank")
+                                a(href="/shops/#{shop._id}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
-                                a(href="/shops/#{shop._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                a(href="/shops/#{shop._id}/edit", class="btn btn-warning", target="_blank")
                                     i.bi.bi-pencil
-                                a(href="/shops/#{shop._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                a(href="/shops/#{shop._id}/delete", class="btn btn-danger", target="_blank")
                                     i.bi.bi-trash
             - else
                 article.col-12
