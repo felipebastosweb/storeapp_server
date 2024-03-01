@@ -9,10 +9,10 @@ import std.conv;
 import std.algorithm: map;
 
 import database;
-import models.product;
 import models.purchase;
 import models.shop;
 import models.supplier;
+import models.product;
 import models.payment;
 
 import translation;

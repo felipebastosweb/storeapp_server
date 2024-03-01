@@ -23,6 +23,7 @@ struct Order {
     double taxes;
     double total;
     DateTime request_date;
+    DateTime delivery_date;
     @optional OrderItem[] order_items;
     @optional OrderPayment[] order_payments;
 }
@@ -33,8 +34,9 @@ struct OrderItem {
     @optional Order order;
     string product_id;
     @optional Product product;
-    double value;
+    double price;
     double quantity;
+    double taxes;
     double total;
     
 }
@@ -44,6 +46,8 @@ struct OrderPayment {
     string payment_type_id;
     PaymentType payment_type;
     double value;
+    double taxes;
+    double total;
     DateTime deadline_date;  //Pagamento deve ser realizado até essa data e hora (prazo)
     DateTime pay_date;  //Data de efetivação do pagamento
     PaymentStatus status = PaymentStatus.Pending; // 0 - pending

@@ -14,14 +14,20 @@ block contents
                     article#order.col-3(style="padding:5px;")
                         .card
                             .card-body
-                                h3.card-title #{order.request_date}
-                                h6.card-subtitle #{order.total}
+                                h3.card-title #{order.customer.name}
+                                h6.card-subtitle
+                                    a(href="/shops/#{order.shop._id}", target="_blank") Loja: #{order.shop.name}
+                                p.card-text Value #{order.value}
+                                p.card-text Taxes #{order.taxes}
+                                p.card-text Total #{order.total}
+                                p.card-text Order Date: #{order.request_date.toISOExtString()}
+                                p.card-text Order Date: #{order.delivery_date.toISOExtString()}
                                 p.card-text
-                                    a(href="/orders/#{order._id.toString()}", class="btn btn-info", target="_blank")
+                                    a(href="/orders/#{order._id}", class="btn btn-info", target="_blank")
                                         i.bi.bi-eye
-                                    a(href="/orders/#{order._id.toString()}/edit", class="btn btn-warning", target="_blank")
+                                    a(href="/orders/#{order._id}/edit", class="btn btn-warning", target="_blank")
                                         i.bi.bi-pencil
-                                    a(href="/orders/#{order._id.toString()}/delete", class="btn btn-danger", target="_blank")
+                                    a(href="/orders/#{order._id}/delete", class="btn btn-danger", target="_blank")
                                         i.bi.bi-trash
             - else
                 article.col-12

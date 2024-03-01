@@ -1,22 +1,25 @@
 .mb-3
-	label.form-label& Shop
-	select.form-control(name="shop_id")
-		-foreach(shop; shops)
-			option(value="#{shop._id}") #{shop.name}
+    label.form-label& Shop
+    select.form-control(name="shop_id")
+        -foreach(shop; shops)
+            option(value="#{shop._id}") #{shop.name}
 .mb-3
-	label.form-label& Customer
-	select.form-control(name="customer_id")
-		-foreach(customer; customers)
-			option(value="#{customer._id}") #{customer.name}
+    label.form-label& Customer
+    select.form-control(name="customer_id")
+        -foreach(customer; customers)
+            option(value="#{customer._id}") #{customer.name}
 .mb-3
-	label.form-label& Request Date
-	input.form-control(type="date", name="request_date", value="#{order.request_date}")
+    label.form-label& Value
+    input.form-control(type="number", name="value", value="#{order.value}")
 .mb-3
-	label.form-label& Value
-	input.form-control(type="number", name="value", value="#{order.value}")
+    label.form-label& Taxes
+    input.form-control(type="number", name="taxes", value="#{order.taxes}")
 .mb-3
-	label.form-label& Taxes
-	input.form-control(type="number", name="taxes", value="#{order.taxes}")
+    label.form-label& Total
+    input.form-control(type="number", name="total", value="#{order.total}")
 .mb-3
-	label.form-label& Total
-	input.form-control(type="number", name="total", value="#{order.total}")
+    label.form-label& Request Date
+    input.form-control(type="datetime-local", name="request_date", value="#{order.request_date}")
+.mb-3
+    label.form-label& Delivery Date
+    input.form-control(type="datetime-local", name="delivery_date", value="#{order.delivery_date}")

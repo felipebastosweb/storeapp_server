@@ -1,4 +1,4 @@
-p #{order.customer.name}
 p #{order.shop.name}
+p #{order.customer.name}
 p #{order.total}
 p #{order.request_date}

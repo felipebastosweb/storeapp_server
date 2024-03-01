@@ -11,6 +11,8 @@ import database;
 import models.order;
 import models.shop;
 import models.customer;
+import models.product;
+import models.payment;
 
 import translation;
 
@@ -19,12 +21,16 @@ class OrderController {
 	MongoCollection coll;
 	MongoCollection coll_shop;
 	MongoCollection coll_customer;
+	MongoCollection coll_product;
+	MongoCollection coll_payment_type;
 
 	this() {
 		client = connectMongoDB("127.0.0.1");
 		coll = client.getCollection("storeapp.orders");
 		coll_shop = client.getCollection("storeapp.shops");
 		coll_customer = client.getCollection("storeapp.customers");
+		coll_product = client.getCollection("storeapp.products");
+		coll_payment_type = client.getCollection("storeapp.payment_types");
 	}
     
 	// GET /
@@ -71,8 +77,9 @@ class OrderController {
 		order.taxes = to!double(req.form["taxes"]);
 		order.total = to!double(req.form["total"]);
 		order.request_date = DateTime.fromISOExtString(req.form["request_date"]);
+		order.delivery_date = DateTime.fromISOExtString(req.form["delivery_date"]);
 		coll.insertOne(order);
-        res.redirect("/orders");
+        res.redirect("/orders/" ~ order._id.toString());
 	}
 
 	
@@ -95,11 +102,59 @@ class OrderController {
             item.total = 50;
 			order.order_items ~= item;
 			*/
-			render!("orders_show.dt", order);
+			
+			auto new_item = OrderItem();
+			auto new_payment = OrderPayment();
+			auto products = coll_product.find().map!(bson => deserializeBson!Product(bson));
+			auto payment_types = coll_payment_type.find().map!(bson => deserializeBson!PaymentType(bson));
+			render!("orders_show.dt", order, new_item, new_payment, products, payment_types);
 		} else {
 
 		}
     }
 	
+	// GET /orders/:_id/edit
+	@method(HTTPMethod.GET)
+	@path("/orders/:_id/edit")
+	void edit_form(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		/*
+		bool authenticated = ms_authenticated;
+		render!("shop_index.dt", authenticated);
+		*/
+		struct Q { BsonObjectID _id; }
+        auto docNullable = coll.findOne!Order(Q(BsonObjectID.fromString(req.params["_id"])));
+		if (! docNullable.isNull) {
+			// Acessar os campos da estrutura Order
+			Order order = docNullable.get;
+			auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
+			auto customers = coll_customer.find().map!(bson => deserializeBson!Customer(bson));
+			render!("orders_edit.dt", order, shops, customers);
+		}
+	}
+	
+
+    // POST /orders/:_id
+	@method(HTTPMethod.POST)
+	@path("/orders/:_id")
+	void change(HTTPServerRequest req, HTTPServerResponse res)
+	{
+		auto _id = BsonObjectID.fromString(req.form["_id"]);
+        // filter
+		BsonObjectID[string] filter;
+		filter["_id"] = _id;
+        // update
+		Bson[string][string] update;
+		// TODO: change shop
+		// TODO: change supplier
+		//update["$set"]["name"] = req.form["name"];
+		update["$set"]["value"] = req.form["value"];
+		update["$set"]["taxes"] = req.form["taxes"];
+		update["$set"]["total"] = req.form["total"];
+		update["$set"]["request_date"] = req.form["request_date"];
+		update["$set"]["delivery_date"] = req.form["delivery_date"];
+		coll.updateOne(filter, update);
+        res.redirect("/orders/" ~ req.form["_id"]);
+	}
 
 }

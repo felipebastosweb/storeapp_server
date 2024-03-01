@@ -16,7 +16,15 @@ block contents
                     .col-6
                         h4 Items of Order
                     .col-6
-                        a(href="/orders/#{order._id.toString()}/order-items/new", class="btn btn-primary", target="_blank") Add Order Item
+                        #orderItemModal.modal.fade(tabindex="-1")
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5#orderItemModalLabel.modal-title New Order Item
+                                        button.btn.btn-close(type="button", data-bs-dismiss="modal")
+                                    .modal-body
+                                        include orders_item_new
+                        button.btn.btn-primary( data-bs-toggle="modal", data-bs-target="#orderItemModal") Add Order Item
                 article.row#order-items
                     .col-6 Item Name
                     .col-2 Price
@@ -25,8 +33,9 @@ block contents
                 - foreach(order_item; order.order_items)
                     .row
                         .col-6 #{order_item.product.name}
-                        .col-2 #{order_item.value}
+                        .col-2 #{order_item.price}
                         .col-2 #{order_item.quantity}
+                        .col-2 #{order_item.taxes}
                         .col-2 #{order_item.total}
                 footer.row#footer-order-items
                     .col-6 &nbsp;
@@ -38,7 +47,15 @@ block contents
                     .col-6
                         h4 List of Payments
                     .col-6
-                        a(href="/orders/#{order._id}/order-payments/new", class="btn btn-primary", target="_blank") Add Payment to Order
+                        #paymentModal.modal.fade(tabindex="-1")
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5#paymentModalLabel.modal-title New Order Payment
+                                        button.btn.btn-close(type="button", data-bs-dismiss="modal")
+                                    .modal-body
+                                        include orders_payment_new
+                        button.btn.btn-primary(data-bs-toggle="modal", data-bs-target="#paymentModal") Add Payment
                 aside.row#order-payments
                     .col-4 Payment Type
                     .col-2 Value

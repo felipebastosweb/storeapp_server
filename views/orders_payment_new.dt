@@ -1,0 +1,26 @@
+article.container
+    section.row
+        form(action="/orders/#{order._id}/order-payments", method="POST", enctype="multipart/form-data")
+            .mb-3
+                label.form-label& Method
+                select.form-control(name="payment_type_id")
+                    -foreach(payment_type; payment_types)
+                        option(value="#{payment_type._id}") #{payment_type.name}
+            .mb-3
+                label.form-label& Value
+                input.form-control(type="number", name="value", value="#{new_payment.value}")
+            .mb-3
+                label.form-label& Taxes
+                input.form-control(type="number", name="taxes", value="#{new_payment.taxes}")
+            .mb-3
+                label.form-label& Total
+                input.form-control(type="number", name="total", value="#{new_payment.total}")
+            .mb-3
+                label.form-label& Deadline Date
+                input.form-control(type="date", name="deadline_date", value="#{new_payment.deadline_date.toISOExtString()}")
+            .mb-3
+                label.form-label& Pay Date
+                input.form-control(type="date", name="pay_date", value="#{new_payment.pay_date.toISOExtString()}")
+            .mb-3
+                a.btn.btn-secondary(href="/orders/#{order._id}")& Cancel
+                button.btn.btn-primary(type="submit")& Confirm

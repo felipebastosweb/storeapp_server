@@ -2,6 +2,7 @@ module models.product;
 
 import vibe.d;
 import vibe.data.serialization;
+import std.algorithm;
 import vibe.db.mongo.mongo;
 
 import enums.measure;

@@ -6,9 +6,7 @@ block contents
             .col-12
                 h2& Edit Purchase
         section.row
-            form(action="/purchases", method="PUT")
-                .mb-3
-                    input(type="hidden", name="_id", value="#{purchase._id}")
+            form(action="/purchases/#{purchase._id}", method="POST")
                 include purchases__form
                 .mb-3
                     button.btn.btn-secondary(onclick="javascript::window.close()")& Cancel
