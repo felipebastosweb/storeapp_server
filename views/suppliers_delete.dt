@@ -1,0 +1,30 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Delete Supplier
+                p Do you want to delete this supplier?
+        section.row
+            include suppliers__supplier
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Back
+                button.btn.btn-danger(onclick="deleteSupplier(\'#{supplier._id}\')")
+                    i.bi.bi-trash
+    script.
+        function deleteSupplier(supplierId) {
+            var req = new XMLHttpRequest(); 
+            req.open('DELETE', '/suppliers/'+supplierId);
+            req.send();
+            req.onload = function() {
+                if (req.status == 204) {
+                    alert("Supplier deleted with success." + supplierId);
+                    window.location.href = "/suppliers";
+                }
+                else {
+                    // Erro: exibir mensagem de erro
+                    alert('The action to delete supplier failed. Please, try again.');
+                }
+            };
+        }

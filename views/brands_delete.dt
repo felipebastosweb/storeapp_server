@@ -1,0 +1,30 @@
+extends layout_default
+
+block contents
+    article.container
+        header.row
+            .col-12
+                h2& Delete Brand
+                p Do you want to delete this brand?
+        section.row
+            include brands__brand
+            .mb-3
+                button.btn.btn-secondary(onclick="javascript::window.close()")& Back
+                button.btn.btn-danger(onclick="deleteBrand(\'#{brand._id}\')")
+                    i.bi.bi-trash
+    script.
+        function deleteBrand(brandId) {
+            var req = new XMLHttpRequest(); 
+            req.open('DELETE', '/brands/'+brandId);
+            req.send();
+            req.onload = function() {
+                if (req.status == 204) {
+                    alert("Brand deleted with success." + brandId);
+                    window.location.href = "/brands";
+                }
+                else {
+                    // Erro: exibir mensagem de erro
+                    alert('The action to delete brand failed. Please, try again.');
+                }
+            };
+        }
