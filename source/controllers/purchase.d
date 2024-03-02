@@ -219,10 +219,10 @@ class PurchaseController {
         render!("purchases/index.dt", authenticated);
         */
         struct Q { BsonObjectID _id; }
-        auto docNullable = coll.findOne!Supplier(Q(BsonObjectID.fromString(req.params["_id"])));
+        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
         if (! docNullable.isNull) {
             // Acessar os campos da estrutura Supplier
-            Supplier purchase = docNullable.get;
+            Purchase purchase = docNullable.get;
             render!("purchases_delete.dt", purchase);
         }
     }

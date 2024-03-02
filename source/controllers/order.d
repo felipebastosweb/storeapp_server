@@ -171,7 +171,7 @@ class OrderController {
         if (! docNullable.isNull) {
             // Acessar os campos da estrutura Order
             Order order = docNullable.get;
-            render!("orders.dt", order);
+            render!("orders_delete.dt", order);
         }
     }
 
