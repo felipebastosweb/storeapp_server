@@ -80,8 +80,11 @@ class ShopController {
     @path("/shops")
     void create(HTTPServerRequest req, HTTPServerResponse res)
     {
+        struct Q { BsonObjectID _id; }
         Shop shop;
         shop._id = BsonObjectID.generate; // Gera um ID aleatório para a loja
+        shop.user_id = req.form["user_id"];
+        shop.user = coll_user.findOne!User(Q(BsonObjectID.fromString(shop.user_id))).get;
         shop.name = req.form["name"];
         shop.fantasy_name = req.form["fantasy_name"];
         shop.federal_registration_number = req.form["federal_registration_number"];
@@ -121,12 +124,16 @@ class ShopController {
     @path("/shops/:_id")
     void change(HTTPServerRequest req, HTTPServerResponse res)
     {
+        struct Q { BsonObjectID _id; }
         auto _id = BsonObjectID.fromString(req.params["_id"]);
         // filter
         BsonObjectID[string] filter;
         filter["_id"] = _id;
         // update
         Bson[string][string] update;
+        update["$set"]["user_id"] = req.form["user_id"];
+		auto user = coll_user.findOne!User(Q(BsonObjectID.fromString(req.form["user_id"]))).get;
+        update["$set"]["user"] = user.serializeToBson();
         update["$set"]["name"] = req.form["name"];
         update["$set"]["fantasy_name"] = req.form["fantasy_name"];
         update["$set"]["federal_registration_number"] = req.form["federal_registration_number"];
