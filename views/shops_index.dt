@@ -16,6 +16,7 @@ block contents
                             .card-body
                                 h5.card-title #{shop.name}
                                 h6.card-subtitle #{shop.fantasy_name}
+                                p.card-text #{shop.date_registration_status.toISOExtString()}
                                 p.card-text Address: #{shop.address}
                                 p.card-text Site: #{shop.site}
                                 p.card-text Email: #{shop.email}
