@@ -136,6 +136,7 @@ class PurchaseController {
 	@path("/purchases/:_id")
 	void change(HTTPServerRequest req, HTTPServerResponse res)
 	{
+		struct Q { BsonObjectID _id; }
 		auto _id = BsonObjectID.fromString(req.params["_id"]);
         // filter
 		BsonObjectID[string] filter;
@@ -143,8 +144,13 @@ class PurchaseController {
         // update
 		Bson[string][string] update;
 		// TODO: change shop
+		update["$set"]["shop_id"] = req.form["shop_id"];
+		auto shop = coll_shop.findOne!Shop(Q(BsonObjectID.fromString(req.form["shop_id"]))).get;
+        update["$set"]["shop"] = shop.serializeToBson();
 		// TODO: change supplier
-		//update["$set"]["name"] = req.form["name"];
+		update["$set"]["supplier_id"] = req.form["supplier_id"];
+		auto supplier = coll_supplier.findOne!Supplier(Q(BsonObjectID.fromString(req.form["supplier_id"]))).get;
+        update["$set"]["supplier"] = supplier.serializeToBson();
 		update["$set"]["value"] = req.form["value"];
 		update["$set"]["taxes"] = req.form["taxes"];
 		update["$set"]["total"] = req.form["total"];
