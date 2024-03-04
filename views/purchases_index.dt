@@ -14,13 +14,15 @@ block contents
                     article#purchase.col-3(style="padding:5px;")
                         .card
                             .card-body
-                                h3.card-title #{purchase.supplier.name}
-                                h6.card-subtitle
-                                    a(href="/shops/#{purchase.shop._id}", target="_blank") Loja: #{purchase.shop.name}
+                                h5.card-title
+                                    a(href="/shops/#{purchase.shop._id}", target="_blank") #{purchase.shop.name}
+                                h6.card-subtitle 
+                                    a(href="/suppliers/#{purchase.supplier._id}", target="_blank") #{purchase.supplier.name}
                                 p.card-text Valor #{purchase.value}
                                 p.card-text Taxes #{purchase.taxes}
                                 p.card-text Total #{purchase.total}
                                 p.card-text Data da Compra: #{purchase.purchase_date.toISOExtString()}
+                                p.card-text Data de Entrada: #{purchase.entry_date.toISOExtString()}
                                 a(href="/purchases/#{purchase._id}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
                                 a(href="/purchases/#{purchase._id}/edit", class="btn btn-warning", target="_blank")

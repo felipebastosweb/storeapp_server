@@ -24,6 +24,7 @@ struct Purchase {
     double total;
     Date purchase_date; // data da compra
     Date entry_date; // data de recebimento do produto (entrada no estoque)
+    @optional bool canceled = false;
     @optional PurchaseItem[] purchase_items;
     @optional PurchasePayment[] purchase_payments;
 }

@@ -19,7 +19,10 @@
     input.form-control(type="number", name="total", value="#{purchase.total}")
 .mb-3
     label.form-label& Purchase Date
-    input.form-control(type="date", name="purchase_date", value="#{purchase.purchase_date}")
+    input.form-control(type="date", name="purchase_date", value="#{purchase.purchase_date.toISOExtString()}")
 .mb-3
     label.form-label& Entry Date
-    input.form-control(type="date", name="entry_date", value="#{purchase.entry_date}")
+    input.form-control(type="date", name="entry_date", value="#{purchase.entry_date.toISOExtString()}")
+.mb-3.form-check
+    input.form-check-input(type="checkbox", name="canceled", value="1", purchase.canceled ? 'checked' : '') 
+    label.form-check-label& Canceled

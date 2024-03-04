@@ -43,7 +43,8 @@ class PurchaseController {
 		bool authenticated = ms_authenticated;
 		render!("user/index.dt", authenticated);
 		*/
-		auto purchases = coll.find().sort(["purchase_date": 1]).map!(bson => deserializeBson!Purchase(bson));
+		auto purchases = coll.find()/*.sort(["purchase_date": 1])*/.map!(bson => deserializeBson!Purchase(bson));
+		//writeln(purchases);
 		render!("purchases_index.dt", purchases);
 	}
 	
@@ -57,6 +58,9 @@ class PurchaseController {
 		render!("purchases/index.dt", authenticated);
 		*/
         auto purchase = Purchase();
+        SysTime today = Clock.currTime();
+        purchase.purchase_date = cast(Date)today;
+		purchase.entry_date = cast(Date)today;
 		auto shops = coll_shop.find().map!(bson => deserializeBson!Shop(bson));
 		auto suppliers = coll_supplier.find().map!(bson => deserializeBson!Supplier(bson));
 		render!("purchases_new.dt", purchase, shops, suppliers);
@@ -71,13 +75,15 @@ class PurchaseController {
 		Purchase purchase;
 		purchase._id = BsonObjectID.generate; // Gera um ID aleatório para a compra
 		purchase.shop_id = req.form["shop_id"];
-		purchase.shop = coll_shop.findOne!Shop(Q(BsonObjectID.fromString(purchase.shop_id))).get;
 		purchase.supplier_id = req.form["supplier_id"];
+		purchase.shop = coll_shop.findOne!Shop(Q(BsonObjectID.fromString(purchase.shop_id))).get;
 		purchase.supplier = coll_supplier.findOne!Supplier(Q(BsonObjectID.fromString(purchase.supplier_id))).get;
 		purchase.value = to!double(req.form["value"]);
 		purchase.taxes = to!double(req.form["taxes"]);
 		purchase.total = to!double(req.form["total"]);
 		purchase.purchase_date = Date.fromISOExtString(req.form["purchase_date"]);
+		purchase.entry_date = Date.fromISOExtString(req.form["entry_date"]);
+		purchase.canceled = "canceled" in req.form ? to!bool(req.form["canceled"]) : false;
 		coll.insertOne(purchase);
         res.redirect("/purchases");
 	}
@@ -151,11 +157,15 @@ class PurchaseController {
 		update["$set"]["supplier_id"] = req.form["supplier_id"];
 		auto supplier = coll_supplier.findOne!Supplier(Q(BsonObjectID.fromString(req.form["supplier_id"]))).get;
         update["$set"]["supplier"] = supplier.serializeToBson();
-		update["$set"]["value"] = req.form["value"];
-		update["$set"]["taxes"] = req.form["taxes"];
-		update["$set"]["total"] = req.form["total"];
+		// TODO: bug value in modeel is double and in base is string
+		// Quando era editado a compra estava dando erro tipo string quando esperado double
+		update["$set"]["value"] = to!double(req.form["value"]);
+		update["$set"]["taxes"] = to!double(req.form["taxes"]);
+		update["$set"]["total"] = to!double(req.form["total"]);
+		// Agora, não dá erro mas não localiza o doc
 		update["$set"]["purchase_date"] = req.form["purchase_date"];
 		update["$set"]["entry_date"] = req.form["entry_date"];
+		update["$set"]["canceled"] = "canceled" in req.form ? to!bool(req.form["canceled"]) : false;
 		coll.updateOne(filter, update);
         res.redirect("/purchases");
 	}
