@@ -44,9 +44,7 @@ struct PurchasePayment {
 
 struct PurchaseItem {
     BsonObjectID _id;
-    string purchase_id;
     string product_id;
-    @optional Purchase purchase;
     @optional Product product;
     double quantity;
     double price;

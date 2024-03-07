@@ -1,8 +1,8 @@
-p #{product.name}
-p #{product.model}
-p #{product.sku}
-p #{product.ean}
-p #{product.width}
-p #{product.height}
-p #{product.length}
-p #{product.weight}
+p Name: #{product.name}
+p Model: #{product.model}
+p SKU: #{product.sku}
+p EAN: #{product.ean}
+p Width: #{product.width}
+p Height: #{product.height}
+p Length: #{product.length}
+p Weight: #{product.weight}

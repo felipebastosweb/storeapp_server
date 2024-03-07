@@ -1,6 +1,6 @@
 article.container
     section.row
-        form(action="/purchases/#{purchase._id}/purchase-items", method="POST", enctype="multipart/form-data")
+        form(action="/purchases/#{purchase._id}/add-item", method="POST", enctype="multipart/form-data")
             .mb-3
                 label.form-label& Product
                 select.form-control(name="product_id")
