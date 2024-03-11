@@ -206,17 +206,64 @@ class PurchaseController {
             auto purchase = docNullable.get;
             auto product = coll_product.findOne!Product(Q(BsonObjectID.fromString(req.form["product_id"]))).get;
             auto item = PurchaseItem();
+            item._id = BsonObjectID.generate;
             item.product_id = req.form["product_id"];
             item.product = product;
             item.price = to!double(req.form["price"]);
             item.quantity = to!double(req.form["quantity"]);
             item.total = to!double(req.form["total"]);
-            purchase.value = purchase.value + item.total;
-            purchase.total = purchase.total + item.total;
+            // add the item to the order
             purchase.purchase_items ~= item;
+            // BUG: recalculates the value based on item totals
+            purchase.value = purchase.value + item.total;
+            // TODO: apply the fees to the order
+            purchase.total = purchase.value + purchase.taxes;
             // TODO: update items
             Bson[string][string] update;
             update["$set"]["value"] = purchase.value;
+            // fees that apply to the order
+            update["$set"]["taxes"] = purchase.taxes;
+            update["$set"]["total"] = purchase.total;
+            update["$set"]["purchase_items"] = purchase.purchase_items.serializeToBson();
+            coll.updateOne(filter, update);
+            res.redirect("/purchases");
+        }
+    }
+    
+    // POST /purchases/:_id/change-item:_item_id
+    @method(HTTPMethod.POST)
+    @path("/purchases/:_id/change-item/:_item_id")
+    void change_item(HTTPServerRequest req, HTTPServerResponse res)
+    {
+        struct Q { BsonObjectID _id; }
+        auto _id = BsonObjectID.fromString(req.params["_id"]);
+        // filter
+        BsonObjectID[string] filter;
+        filter["_id"] = _id;
+        auto docNullable = coll.findOne!Purchase(Q(BsonObjectID.fromString(req.params["_id"])));
+        if (! docNullable.isNull) {
+            auto purchase = docNullable.get;
+            foreach (item; purchase.purchase_items) {
+                if (item._id == BsonObjectID.fromString(req.params["_item_id"]))
+                {
+                    item.quantity = to!double(req.form["quantity"]);
+                    if (item.quantity < 1) {
+                        // BUG: remove item from purchase_items list
+                        //purchase.purchase_items.remove(item);
+                    }
+                    else {
+                        item.price = to!double(req.form["price"]);
+                        item.total = item.quantity * item.price;
+                    }
+                }
+            }
+            // TODO: set total and value of purchase accordingly
+            // TODO: update the purchase
+            Bson[string][string] update;
+            // sum of all item's totals
+            update["$set"]["value"] = purchase.value;
+            // fees that apply to the order
+            update["$set"]["taxes"] = purchase.taxes;
             update["$set"]["total"] = purchase.total;
             update["$set"]["purchase_items"] = purchase.purchase_items.serializeToBson();
             coll.updateOne(filter, update);
@@ -291,5 +338,4 @@ class PurchaseController {
             res.writeBody("Usuário não encontrado.");
         }
     }
-    
 }
