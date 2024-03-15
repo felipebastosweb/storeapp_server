@@ -18,9 +18,15 @@ block contents
                                 h6.card-subtitle
                                     a(href="#{brand.site}", target="_blank") Site
                                 p.card-text Description: #{brand.description}
-                                p.card-text Email: #{brand.email}
-                                p.card-text Phone 1: #{brand.phone1}
-                                p.card-text Phone 2: #{brand.phone2}
+                                p.card-text
+                                    span Email: 
+                                    a(href="mailto:#{brand.email}", target="_blank") #{brand.email}
+                                p.card-text
+                                    span Phone 1: 
+                                    a(href="tel:#{brand.phone1}", target="_blank") #{brand.phone1}
+                                p.card-text
+                                    span Phone 2: 
+                                    a(href="tel:#{brand.phone2}", target="_blank") #{brand.phone2}
                                 a(href="/brands/#{brand._id}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
                                 a(href="/brands/#{brand._id}/edit", class="btn btn-warning", target="_blank")

@@ -2,5 +2,7 @@ p #{brand.name}
 p #{brand.address}
 p #{brand.site}
 p #{brand.email}
-p #{brand.phone1}
-p #{brand.phone2}
+p 
+    a(href="tel:#{brand.phone1}") #{brand.phone1}
+p
+    a(href="tel:#{brand.phone2}") #{brand.phone2}

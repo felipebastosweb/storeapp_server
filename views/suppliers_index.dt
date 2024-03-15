@@ -15,18 +15,24 @@ block contents
                         .card
                             .card-body
                                 h3.card-title #{supplier.name}
-                                p.card-text
                                 p.card-text Address: #{supplier.address}
                                 p.card-text Site: #{supplier.site}
-                                p.card-text Email: #{supplier.email}
-                                p.card-text Phone 1: #{supplier.phone1}
-                                p.card-text Phone 2: #{supplier.phone2}
-                                a(href="/suppliers/#{supplier._id}", class="btn btn-info", target="_blank")
-                                    i.bi.bi-eye
-                                a(href="/suppliers/#{supplier._id}/edit", class="btn btn-warning", target="_blank")
-                                    i.bi.bi-pencil
-                                a(href="/suppliers/#{supplier._id}/delete", class="btn btn-danger", target="_blank")
-                                    i.bi.bi-trash
+                                p.card-text
+                                    span Email:
+                                    a(href="mailto:#{supplier.email}", target="_blank") #{supplier.email}
+                                p.card-text
+                                    span Phone 1: 
+                                    a(href="tel:#{supplier.phone1}", target="_blank") #{supplier.phone1}
+                                p.card-text
+                                    span Phone 2: 
+                                    a(href="tel:#{supplier.phone2}", target="_blank") #{supplier.phone2}
+                                p.card-text
+                                    a(href="/suppliers/#{supplier._id}", class="btn btn-info", target="_blank")
+                                        i.bi.bi-eye
+                                    a(href="/suppliers/#{supplier._id}/edit", class="btn btn-warning", target="_blank")
+                                        i.bi.bi-pencil
+                                    a(href="/suppliers/#{supplier._id}/delete", class="btn btn-danger", target="_blank")
+                                        i.bi.bi-trash
             - else
                 article.col-12
                     h3 No registered suppliers

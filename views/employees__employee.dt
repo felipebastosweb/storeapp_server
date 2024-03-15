@@ -1,5 +1,7 @@
 p #{employee.name}
 p #{employee.address}
 p #{employee.email}
-p #{employee.phone1}
-p #{employee.phone2}
+p
+    a(href="tel:#{employee.phone1}", target="_blank") #{employee.phone1}
+p
+    a(href="tel:#{employee.phone2}", target="_blank") #{employee.phone2}

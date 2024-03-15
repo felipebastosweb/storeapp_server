@@ -15,9 +15,15 @@ block contents
                         .card-body
                             h3.card-title #{employee.name}
                             p.card-text
-                                | Email: #{employee.email}
-                                | Phone 1: #{employee.phone1}
-                                | Phone 2: #{employee.phone2}
+                                span Email: 
+                                a(href="mailto:#{employee.email}", target="_blank") #{employee.email}
+                            p.card-text
+                                span Phone 1: 
+                                a(href="tel:#{employee.phone1}", target="_blank") #{employee.phone1}
+                            p.card-text
+                                span Phone 2: 
+                                a(href="tel:#{employee.phone2}", target="_blank") #{employee.phone2}
+                            p.card-text
                                 a(href="/employees/#{employee._id}", class="btn btn-info", target="_blank")
                                     i.bi.bi-eye
                                 a(href="/employees/#{employee._id}/edit", class="btn btn-warning", target="_blank")

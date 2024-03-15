@@ -17,8 +17,15 @@ block contents
                                 h3.card-title #{customer.name}
                                 p.card-text Name: #{customer.name}
                                 p.card-text Address: #{customer.address}
-                                p.card-text Phone 1: #{customer.phone1}
-                                p.card-text Phone 2: #{customer.phone2}
+                                p.card-text
+                                    span E-mail:
+                                    a(href="mailto:#{customer.email}", target="_blank") #{customer.email}
+                                p.card-text 
+                                    span Phone 1: 
+                                    a(href="tel:#{customer.phone1}", target="_blank") #{customer.phone1}
+                                p.card-text
+                                    span Phone 2: 
+                                    a(href="tel:#{customer.phone2}", target="_blank") #{customer.phone2}
                                 p.card-text
                                     a(href="/customers/#{customer._id}", class="btn btn-info", target="_blank")
                                         i.bi.bi-eye

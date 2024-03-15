@@ -2,5 +2,7 @@ p #{shop.name}
 p #{shop.fantasy_name}
 p #{shop.address}
 p #{shop.email}
-p #{shop.phone1}
-p #{shop.phone2}
+p
+    a(href="tel:#{shop.phone1}", target="_blank") #{shop.phone1}
+p
+    a(href="tel:#{shop.phone2}", target="_blank") #{shop.phone2}
